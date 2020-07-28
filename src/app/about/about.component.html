@@ -3,8 +3,13 @@
 </p>
 
 
-<ul>
-    <li *ngFor="let goal of goals">
-        {{ goal }}
-    </li>
-</ul>
+<div *ngIf="alumnos?.length > 0;else Sinalumnos">
+    <UL *ngFor="let alumno of alumnos">
+        <li><strong>{{ alumno.apellidos }}</strong>, {{ alumno.nombres }}</li>
+    </UL>
+</div>
+
+<ng-template #Sinalumnos>
+    <hr>
+    <h5>No hay alumnos que mostrar</h5>
+</ng-template>

@@ -28,14 +28,9 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.scss",
-              "../node_modules/font-awesomme/css/font-awesome.css",
-              "../node_modules/materialize-css/dist/css/materialize.css"
+              "src/styles.scss"
             ],
-            "scripts": [
-              "../node_modules/jquery/dist/jquery.js",
-              "../node_modules/materialize-css/dist/js/materialize.js"
-            ]
+            "scripts": []
           },
           "configurations": {
             "production": {

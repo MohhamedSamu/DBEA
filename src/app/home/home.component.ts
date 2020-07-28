@@ -7,7 +7,7 @@ import { DataService } from '../data.service';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-
+  
   itemCount: number ;
   btnText: string = 'Add an item';
   goalText: string = 'My first life goal';
@@ -16,6 +16,7 @@ export class HomeComponent implements OnInit {
   constructor(private _data: DataService) { }
 
   ngOnInit(): void {
+    
     this._data.goal.subscribe(res => this.goals = res);
     this.itemCount = this.goals.length;
     this._data.changeGoal(this.goals);

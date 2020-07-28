@@ -11,6 +11,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { AngularFireModule } from '@angular/fire';
+import { AngularFirestoreModule} from '@angular/fire/firestore'
 import { environment } from '../environments/environment';
 
 @NgModule({
@@ -26,7 +27,8 @@ import { environment } from '../environments/environment';
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
-    AngularFireModule.initializeApp(environment.firebase, 'DBEA')
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFirestoreModule
   ],
   providers: [DataService], 
   bootstrap: [AppComponent]
