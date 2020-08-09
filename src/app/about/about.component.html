@@ -1,12 +1,13 @@
 <p>
-    This is what i'm all about. <a href="" (click)="sendMeHome()"><strong>Take me back</strong></a>
+    Listado de alumnos.
 </p>
 
 
 <div *ngIf="alumnos?.length > 0;else Sinalumnos">
-    <UL *ngFor="let alumno of alumnos">
+    <hr>
+    <ul *ngFor="let alumno of alumnos">
         <li><strong>{{ alumno.apellidos }}</strong>, {{ alumno.nombres }}</li>
-    </UL>
+    </ul>
 </div>
 
 <ng-template #Sinalumnos>

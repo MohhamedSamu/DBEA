@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from '../data.service';
+import { alumno } from '../models/models'
 
 @Component({
   selector: 'app-home',
@@ -7,32 +8,26 @@ import { DataService } from '../data.service';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  
-  itemCount: number ;
-  btnText: string = 'Add an item';
-  goalText: string = 'My first life goal';
-  goals = [];
-
+  alumno: alumno = {
+    // id: ' ',
+    apellidos: ' ',
+    nombres:' '
+  }
+  //itemCount: number ;
   constructor(private _data: DataService) { }
 
   ngOnInit(): void {
-    
-    this._data.goal.subscribe(res => this.goals = res);
-    this.itemCount = this.goals.length;
-    this._data.changeGoal(this.goals);
+
+    // this.itemCount = this.alumnos.length;
+
   }
 
-  addItem() {
-    this.goals.push(this.goalText);
-    this.goalText = ' ';
-    this.itemCount = this.goals.length;
-    this._data.changeGoal(this.goals);
+  onSubmit(){
+    if (this.alumno.nombres != '' && this.alumno.apellidos != '' ){
+      this._data.addAlumno(this.alumno);
+      this.alumno.apellidos = '';
+      this.alumno.nombres = ' ';
+    }
   }
-
-  removeItem(i) {
-    this.goals.splice(i, 1);
-    this._data.changeGoal(this.goals);
-  }
-
 
 }

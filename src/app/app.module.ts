@@ -13,12 +13,14 @@ import { MatSortModule } from '@angular/material/sort';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule} from '@angular/fire/firestore'
 import { environment } from '../environments/environment';
+import { AdministracionDeGruposComponent } from './administracion-de-grupos/administracion-de-grupos.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    AboutComponent
+    AboutComponent,
+    AdministracionDeGruposComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,68 @@
+<div class="container color-light" *ngIf="alumnos?.length != grupos?.length; else sinAlumnos">
+    <form (ngSubmit)="onSubmit()" >
+        <div class="col">
+            <p class="sm">Asigne alumnos a su grupo</p>
+            <p class="sm">Nombre:</p>
+            <div *ngIf="grupos?.length > 0; else noGrupos">
+                <div *ngFor="let alumno of alumnos">
+                    <div *ngFor="let grupo of grupos">
+                        <p *ngIf="(alumno.id != grupo.idAlumno) && idalumno == alumno.id; else noSeleccionado" (click)="Seleccion(alumno.id)">
+                            <strong>
+                                -- {{ alumno.nombres}}
+                            </strong>
+                        </p>
+                        <ng-template #noSeleccionado>
+                            <p *ngIf="alumno.id != grupo.idAlumno;" (click)="Seleccion(alumno.id)">
+                                {{ alumno.nombres}}
+                            </p>
+                        </ng-template>
+                    </div>
+                </div>
+            </div>
+            <ng-template #noGrupos>
+                <p *ngFor="let alumno of alumnos">
+                    {{ alumno.nombres}}
+                </p>
+            </ng-template>
+        </div>
+        <div class="col">
+            <p class="sm">Grupo:</p>
+            <p>
+                <select name="grupo" [(ngModel)]="SelectedGrupo.grupo">
+                    <option [value]="item" *ngFor="let item of tipos_grupos">{{item}}</option>
+            </select>
+                </p>
+            </div>
+            <div class="col">
+            <input type="submit" class="btn" value="Ingresar">
+        </div>
+    </form>
+</div>
+<ng-template #sinAlumnos>
+    <p>Ya no hay alumnos para asignar!</p>
+</ng-template>
+<div *ngIf="errorState">
+    <p>{{ errorMessage }}</p>
+</div>
+
+
+<!-- iteracion de muchos combobox con un solo nombre en c/u
+    <div *ngFor="let grupo of grupos">
+        <div *ngFor="let alumno of alumnos" >
+            <div *ngIf="alumno.id != grupo.idAlumno">
+                <select [(ngModel)]="SelectedAlumno.id" name="id">
+                    <option value="{{alumno.id}}">
+                        {{ alumno.nombres }}
+                    </option>
+                </select>
+            </div>
+        </div>
+    </div>
+-->
+<!-- iteracion de un select con todos los nombres en un combo box
+<select [(ngModel)]="SelectedAlumno.id" name="id">
+    <option value="{{alumno.id}}" *ngFor="let alumno of alumnos">
+        {{ alumno.nombres }}
+    </option>
+</select>
+-->

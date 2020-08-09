@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
 import { DataService } from '../data.service';
-import { alumno } from '../models/alumno';
+import { alumno } from '../models/models';
 @Component({
   selector: 'app-about',
   templateUrl: './about.component.html',
@@ -11,18 +11,15 @@ import { alumno } from '../models/alumno';
 export class AboutComponent implements OnInit {
 
   alumnos: alumno[];
-  goals: any;
 
   constructor(private route: ActivatedRoute, private router: Router,private _data: DataService) { 
-    this.route.params.subscribe(res => console.log(res.id))
   }
 
   ngOnInit(): void {
-    this._data.getItems().subscribe(alumnos => {
+    this._data.getAlumnos().subscribe(alumnos => {
       // console.log(alumnos);
       this.alumnos = alumnos
     })
-    this._data.goal.subscribe(res => this.goals = res);
   }
 
   sendMeHome(){

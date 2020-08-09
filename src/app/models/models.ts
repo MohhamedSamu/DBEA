@@ -2,7 +2,10 @@ export interface alumno{
     id?:string;
     apellidos?:string;
     nombres?:string;
+}
+
+export interface grupo {
+    id?:string;
     grupo?:string;
-    asistencia?:number;
-    solvencia?:boolean;
+    idAlumno?:string;
 }

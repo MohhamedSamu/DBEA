@@ -1,27 +1,58 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { map } from 'rxjs/operators';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/firestore'
-import { alumno } from './models/alumno';
+import { alumno, grupo } from './models/models';
 @Injectable({
   providedIn: 'root'
 })
 export class DataService {
   alumnosCollection: AngularFirestoreCollection<alumno>;
   alumnos: Observable<alumno[]>
-  private goals = new BehaviorSubject<any>(['The initial goal', 'Another silly life goal']);
-  goal = this.goals.asObservable();
 
+  gruposCollection: AngularFirestoreCollection<grupo>;
+  grupos: Observable<grupo[]>
   constructor(public afs: AngularFirestore) { 
-    this.alumnos = this.afs.collection('Alumnos').valueChanges();
+
+    this.alumnosCollection = this.afs.collection('Alumnos');
+    this.gruposCollection = this.afs.collection('Grupos');
+
+    
+    
+    this.alumnos = this.afs.collection('Alumnos').snapshotChanges().pipe(map(changes => {
+      return changes.map(a => {
+        const data = a.payload.doc.data() as alumno;
+        data.id = a.payload.doc.id;
+        return data;
+      })
+    }));
+    
+
+    this.grupos = this.afs.collection('Grupos').snapshotChanges().pipe(map(changes => {
+      return changes.map(b => {
+        const datas = b.payload.doc.data() as grupo;
+        datas.id = b.payload.doc.id;
+        return datas;
+      })
+    }));
+    
   }
 
-  getItems() {
+  getAlumnos() {
     return this.alumnos;
   }
+  getGrupos() {
+    return this.grupos;
+  }
 
-  changeGoal(goal){
-    this.goals.next(goal);
+  addAlumno(alumno: alumno) {
+    this.alumnosCollection.add(alumno);
+  }
+
+
+  addGrupo(grupo:grupo){
+    this.gruposCollection.add(grupo);
   }
 
 }
