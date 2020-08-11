@@ -1,28 +1,31 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from '../data.service';
-import { alumno, grupo } from '../models/models';
+import { alumno, grupo, nota } from '../models/models';
 import { Observable } from 'rxjs';
 import { ConstantPool } from '@angular/compiler';
 
 @Component({
-  selector: 'app-administracion-de-grupos',
-  templateUrl: './administracion-de-grupos.component.html',
-  styleUrls: ['./administracion-de-grupos.component.scss'],
+  selector: 'app-ingresonotas',
+  templateUrl: './ingresonotas.component.html',
+  styleUrls: ['./ingresonotas.component.scss'],
   providers: [DataService]
 })
-export class AdministracionDeGruposComponent implements OnInit {
-
+export class IngresonotasComponent implements OnInit {
   SelectedAlumno: alumno = {
     id: ' ',
     apellidos: ' ',
     nombres:' '
   }
-
   SelectedGrupo: grupo = {
     grupo: ' ',
     idAlumno:' '
   }
-
+  Selectednota: nota = {
+    id: ' ',
+    nota:0,
+    idAlumno:' ',
+    idgrupo:' '
+  }
   errorState: boolean;
   errorstate = false;
   errorMessage: string;
@@ -30,7 +33,6 @@ export class AdministracionDeGruposComponent implements OnInit {
   grupos: grupo[];
   idalumno:string;
   tipos_grupos:string[] = ["SEN1","SEN2","ADV1","ADV2"]  ;
-
   constructor (private _data: DataService) { }
 
   ngOnInit(): void {    

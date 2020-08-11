@@ -1,0 +1,24 @@
+<div class="container color-light">
+    <form (ngSubmit)="onSubmit()" >
+        <div class="col">
+            <p class="sm" id="titulo">Ingrese los datos para confirmar la nota</p>
+            <p class="sm">Nombre:</p>
+            <input type="text" class="txt" name="nombres" placeholder="Ej. Linus" [(ngModel)]="alumnos.nombres" >
+        </div>
+        <div class="col">
+            <p class="sm">Apellido:</p>
+            <input type="text" class="txt" name="apellidos" placeholder="Ej. Torvald" [(ngModel)]="alumnos.apellidos" >
+        </div>
+        <div class="col">
+            <p class="sm">Nota:</p>
+            <input type="number" class="txt" name="nota" placeholder="Ej. 10" [(ngModel)]="nota.nota" >
+        </div>
+        <div class="col">
+            <p class="sm">Grupo:</p>
+            <input type="text" class="txt" name="grupo" placeholder="Ej. SEN1" [(ngModel)]="grupos.grupo" >
+        </div>
+        <div class="col">
+            <input type="submit" class="btn" value="Ingresar">
+        </div>
+    </form>
+</div>

@@ -11,13 +11,16 @@ import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule} from '@angular/fire/firestore'
 import { environment } from '../environments/environment';
 import { AdministracionDeGruposComponent } from './administracion-de-grupos/administracion-de-grupos.component';
+import { IngresonotasComponent } from './ingresonotas/ingresonotas.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     AboutComponent,
-    AdministracionDeGruposComponent
+    AdministracionDeGruposComponent,
+    IngresonotasComponent,
+    IngresonotasComponent
   ],
   imports: [
     BrowserModule,

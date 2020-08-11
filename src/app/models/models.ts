@@ -9,3 +9,10 @@ export interface grupo {
     grupo?:string;
     idAlumno?:string;
 }
+
+export interface nota {
+    id?:string;
+    nota?:number;
+    idAlumno?:string;
+    idgrupo?:string;
+}
