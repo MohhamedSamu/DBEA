@@ -32,7 +32,7 @@ export class AdministracionDeGruposComponent implements OnInit {
   tipos_grupos:string[] = ["SEN1","SEN2","ADV1","ADV2"]  ;
 
   constructor (private _data: DataService) { }
-
+  
   ngOnInit(): void {    
 
     this._data.getAlumnos().subscribe(alumnos => {

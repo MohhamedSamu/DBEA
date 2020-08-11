@@ -3,22 +3,25 @@
         <div class="col">
             <p class="sm" id="titulo">Ingrese los datos para confirmar la nota</p>
             <p class="sm">Nombre:</p>
-            <input type="text" class="txt" name="nombres" placeholder="Ej. Linus" [(ngModel)]="alumnos.nombres" >
+            <input type="text" class="txt" name="nombres" placeholder="Ej. Linus" [(ngModel)]="SelectedAlumno.nombres" >
         </div>
         <div class="col">
             <p class="sm">Apellido:</p>
-            <input type="text" class="txt" name="apellidos" placeholder="Ej. Torvald" [(ngModel)]="alumnos.apellidos" >
+            <input type="text" class="txt" name="apellidos" placeholder="Ej. Torvald" [(ngModel)]="SelectedAlumno.apellidos" >
         </div>
         <div class="col">
             <p class="sm">Nota:</p>
-            <input type="number" class="txt" name="nota" placeholder="Ej. 10" [(ngModel)]="nota.nota" >
+            <input type="number" class="txt" name="nota" placeholder="Ej. 10" [(ngModel)]="Selectednota.nota" >
         </div>
         <div class="col">
             <p class="sm">Grupo:</p>
-            <input type="text" class="txt" name="grupo" placeholder="Ej. SEN1" [(ngModel)]="grupos.grupo" >
+            <input type="text" class="txt" name="grupo" placeholder="Ej. SEN1" [(ngModel)]="SelectedGrupo.grupo" >
         </div>
         <div class="col">
             <input type="submit" class="btn" value="Ingresar">
         </div>
     </form>
+</div>
+<div *ngFor="let alumno of alumnos">
+    {{ alumno.nombres }}
 </div>

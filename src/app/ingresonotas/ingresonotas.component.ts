@@ -21,7 +21,6 @@ export class IngresonotasComponent implements OnInit {
     idAlumno:' '
   }
   Selectednota: nota = {
-    id: ' ',
     nota:0,
     idAlumno:' ',
     idgrupo:' '
@@ -31,8 +30,6 @@ export class IngresonotasComponent implements OnInit {
   errorMessage: string;
   alumnos: alumno[];
   grupos: grupo[];
-  idalumno:string;
-  tipos_grupos:string[] = ["SEN1","SEN2","ADV1","ADV2"]  ;
   constructor (private _data: DataService) { }
 
   ngOnInit(): void {    
@@ -47,28 +44,11 @@ export class IngresonotasComponent implements OnInit {
   }
 
   onSubmit(): void{
-    if (this.idalumno != ' '){
-      if(this.SelectedGrupo.grupo != ' ' ){
-      this.SelectedGrupo.idAlumno = this.SelectedAlumno.id;
-      this._data.addGrupo(this.SelectedGrupo)
-      this.SelectedAlumno.id = ' '
-      this.SelectedGrupo.id = ' '
-      this.SelectedGrupo.grupo = ' '
-      this.errorState = false;
-      }else{
-        this.errorState = true
-        this.errorMessage = "No puede dejar el espacio del grupo en blanco!."
-      }
-    }else{
-      this.errorState = true
-      this.errorMessage = "Debe seleccionar un alumno para asignar!."
-    }
+    
   }
 
   Seleccion(id:string){
-    this.idalumno = id;
-    console.log(id);
-    
+
   }
 
 }
