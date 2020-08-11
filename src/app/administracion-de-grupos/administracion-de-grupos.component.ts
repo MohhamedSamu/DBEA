@@ -17,10 +17,12 @@ export class AdministracionDeGruposComponent implements OnInit {
     apellidos: ' ',
     nombres:' '
   }
+
   SelectedGrupo: grupo = {
     grupo: ' ',
     idAlumno:' '
   }
+
   errorState: boolean;
   errorstate = false;
   errorMessage: string;

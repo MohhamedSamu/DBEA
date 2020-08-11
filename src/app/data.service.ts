@@ -42,6 +42,7 @@ export class DataService {
   getAlumnos() {
     return this.alumnos;
   }
+  
   getGrupos() {
     return this.grupos;
   }
@@ -49,7 +50,6 @@ export class DataService {
   addAlumno(alumno: alumno) {
     this.alumnosCollection.add(alumno);
   }
-
 
   addGrupo(grupo:grupo){
     this.gruposCollection.add(grupo);
