@@ -7,9 +7,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { AboutComponent } from './about/about.component';
-import { MatTableModule } from '@angular/material/table';
-import { MatPaginatorModule } from '@angular/material/paginator';
-import { MatSortModule } from '@angular/material/sort';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule} from '@angular/fire/firestore'
 import { environment } from '../environments/environment';
@@ -29,9 +26,6 @@ import { IngresonotasComponent } from './ingresonotas/ingresonotas.component';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    MatTableModule,
-    MatPaginatorModule,
-    MatSortModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule
   ],
