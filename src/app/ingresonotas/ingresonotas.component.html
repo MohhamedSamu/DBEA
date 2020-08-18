@@ -1,27 +1,43 @@
 <div class="container color-light">
     <form (ngSubmit)="onSubmit()" >
+        <div class="ladoizquierdo">
         <div class="col">
             <p class="sm" id="titulo">Ingrese los datos para confirmar la nota</p>
-            <p class="sm">Nombre:</p>
-            <input type="text" class="txt" name="nombres" placeholder="Ej. Linus" [(ngModel)]="SelectedAlumno.nombres" >
-        </div>
-        <div class="col">
-            <p class="sm">Apellido:</p>
-            <input type="text" class="txt" name="apellidos" placeholder="Ej. Torvald" [(ngModel)]="SelectedAlumno.apellidos" >
-        </div>
-        <div class="col">
-            <p class="sm">Nota:</p>
-            <input type="number" class="txt" name="nota" placeholder="Ej. 10" [(ngModel)]="Selectednota.nota" >
+            <p class="sm">Evaluacion:</p>
+            <p>
+                <select name="evaluacion1" [(ngModel)]="Selectednota.evaluacion">
+                    <option>Final Test</option>
+                    <option>Oral Evaluation</option>
+                    <option>Class Activity</option>
+                    <option>Final Test</option>
+                </select>
+            </p>
         </div>
         <div class="col">
             <p class="sm">Grupo:</p>
-            <input type="text" class="txt" name="grupo" placeholder="Ej. SEN1" [(ngModel)]="SelectedGrupo.grupo" >
+            <p>
+                <select name="grupo1" [(ngModel)]="SelectedGrupo.grupo">
+                    <option *ngFor="let grupo of grupos" >{{ grupo.grupo }}</option>
+                </select>
+                </p>
+            </div>
         </div>
+        <div class="ladoderecho">
+            <div class="col">
+                <p class="sm">alumnos:</p>
+                <p>
+                    <select name="alumno1" [(ngModel)]="SelectedAlumno.nombres">
+                        <option *ngFor="let alumno of alumnos">{{ alumno.nombres }}</option>
+                    </select>
+                </p>
+            </div>
+            <div class="col">
+                <p class="sm">Nota:</p>
+                <input type="number" class="txt" name="nota1" placeholder="Ej. 8" [(ngModel)]="Selectednota.nota" >    
+            </div>
+            </div>
         <div class="col">
             <input type="submit" class="btn" value="Ingresar">
         </div>
     </form>
-</div>
-<div *ngFor="let alumno of alumnos">
-    {{ alumno.nombres }}
 </div>

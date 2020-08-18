@@ -22,15 +22,18 @@ export class IngresonotasComponent implements OnInit {
   }
   Selectednota: nota = {
     nota:0,
+    evaluacion:' ',
     idAlumno:' ',
-    idgrupo:' '
+    idgrupo:' ' 
   }
   errorState: boolean;
   errorstate = false;
   errorMessage: string;
   alumnos: alumno[];
   grupos: grupo[];
-  constructor (private _data: DataService) { }
+  constructor (private _data: DataService) {
+    
+   }
 
   ngOnInit(): void {    
 
@@ -44,9 +47,13 @@ export class IngresonotasComponent implements OnInit {
   }
 
   onSubmit(): void{
-    
+  var nombre = this.SelectedAlumno.nombres;
+  var evaluacion= this.Selectednota.evaluacion;
+  var grupo=this.SelectedGrupo.grupo;
+  var nota=this.Selectednota.nota;
+  var i=0;
+  
   }
-
   Seleccion(id:string){
 
   }

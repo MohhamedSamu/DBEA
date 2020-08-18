@@ -19,7 +19,6 @@ import { IngresonotasComponent } from './ingresonotas/ingresonotas.component';
     HomeComponent,
     AboutComponent,
     AdministracionDeGruposComponent,
-    IngresonotasComponent,
     IngresonotasComponent
   ],
   imports: [
