@@ -1,43 +1,49 @@
 <div class="container color-light" *ngIf="alumnos?.length != grupos?.length; else sinAlumnos">
-    <form (ngSubmit)="onSubmit()" >
+    <form (ngSubmit)="onSubmit()">
         <div class="col">
-            <p class="sm">Asigne alumnos a su grupo</p>
+            <p class="sm">Seleccione un alumno para asignarle un grupo</p>
             <p class="sm">Nombre:</p>
-            <div *ngIf="grupos?.length > 0; else noGrupos">
-                <div *ngFor="let alumno of alumnos">
-                    <div *ngFor="let grupo of grupos">
-                        <p *ngIf="(alumno.id != grupo.idAlumno) && idalumno == alumno.id; else noSeleccionado" (click)="Seleccion(alumno.id)">
-                            <strong>
-                                -- {{ alumno.nombres}}
-                            </strong>
-                        </p>
-                        <ng-template #noSeleccionado>
-                            <p *ngIf="alumno.id != grupo.idAlumno;" (click)="Seleccion(alumno.id)">
-                                {{ alumno.nombres}}
-                            </p>
-                        </ng-template>
-                    </div>
-                </div>
-            </div>
-            <ng-template #noGrupos>
-                <p *ngFor="let alumno of alumnos">
-                    {{ alumno.nombres}}
+            <div *ngFor="let alumno of alumnos">
+                <p *ngIf="idalumno == alumno.id; else noSeleccionado" (click)="Seleccion(alumno.id)">
+
+                    - {{ alumno.apellidos }}, {{ alumno.nombres }}
+
+                    <strong *ngFor="let grupo of grupos">
+                        <ng-container *ngIf="grupo.idAlumno === alumno.id">
+
+                            {{ grupo.grupo }}
+
+                            <input type="text" class="txt" name="nombres" [(ngModel)]="SelectedGrupo.idAlumno">
+                        </ng-container>
+                    </strong>
                 </p>
-            </ng-template>
+                <ng-template #noSeleccionado>
+                    <p (click)="Seleccion(alumno.id)">
+
+                        {{ alumno.nombres }}
+
+                        <strong *ngFor="let grupo of grupos">
+                            <ng-container *ngIf="grupo.idAlumno === alumno.id">
+                                <ng-container>
+                                    {{ grupo.grupo }}
+                                </ng-container>
+                            </ng-container>
+                        </strong>
+                    </p>
+                </ng-template>
+            </div>
+
+            <select [(ngModel)]="SelectedGrupo.grupo" name="id">
+                <option *ngFor="let tipo of tipos_grupos"> {{ tipo }}</option>
+            </select>
         </div>
         <div class="col">
-            <p class="sm">Grupo:</p>
-            <p>
-                <select name="grupo" [(ngModel)]="SelectedGrupo.grupo">
-                    <option [value]="item" *ngFor="let item of tipos_grupos">{{item}}</option>
-            </select>
-                </p>
-            </div>
-            <div class="col">
             <input type="submit" class="btn" value="Ingresar">
         </div>
     </form>
 </div>
+
+
 <ng-template #sinAlumnos>
     <p>Ya no hay alumnos para asignar!</p>
 </ng-template>
@@ -46,6 +52,27 @@
 </div>
 
 
+<!-- <div *ngIf="grupos?.length > 0; else noGrupos">
+    <div *ngFor="let alumno of alumnos">
+        <div *ngFor="let grupo of grupos">
+            <p *ngIf="(alumno.id != grupo.idAlumno) && idalumno == alumno.id; else noSeleccionado" (click)="Seleccion(alumno.id)">
+                <strong>
+                    -- {{ alumno.nombres}}
+                </strong>
+            </p>
+            <ng-template #noSeleccionado>
+                <p *ngIf="alumno.id != grupo.idAlumno;" (click)="Seleccion(alumno.id)">
+                    {{ alumno.nombres}}
+                </p>
+            </ng-template>
+        </div>
+    </div>
+</div>
+<ng-template #noGrupos>
+    <p *ngFor="let alumno of alumnos">
+        {{ alumno.nombres}}
+    </p>
+</ng-template> -->
 <!-- iteracion de muchos combobox con un solo nombre en c/u
     <div *ngFor="let grupo of grupos">
         <div *ngFor="let alumno of alumnos" >

@@ -22,7 +22,7 @@ export class DataService {
     
     this.alumnos = this.afs.collection('Alumnos').snapshotChanges().pipe(map(changes => {
       return changes.map(a => {
-        const data = a.payload.doc.data() as alumno;
+        const data=  a.payload.doc.data() as alumno;
         data.id = a.payload.doc.id;
         return data;
       })

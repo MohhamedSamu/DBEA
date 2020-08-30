@@ -26,8 +26,10 @@ export class AdministracionDeGruposComponent implements OnInit {
   errorState: boolean;
   errorstate = false;
   errorMessage: string;
+
   alumnos: alumno[];
   grupos: grupo[];
+  
   idalumno:string;
   tipos_grupos:string[] = ["SEN1","SEN2","ADV1","ADV2"]  ;
 
@@ -45,28 +47,32 @@ export class AdministracionDeGruposComponent implements OnInit {
   }
 
   onSubmit(): void{
-    if (this.idalumno != ' '){
-      if(this.SelectedGrupo.grupo != ' ' ){
-      this.SelectedGrupo.idAlumno = this.SelectedAlumno.id;
-      this._data.addGrupo(this.SelectedGrupo)
-      this.SelectedAlumno.id = ' '
-      this.SelectedGrupo.id = ' '
-      this.SelectedGrupo.grupo = ' '
-      this.errorState = false;
+    if (this.idalumno){
+      if (this.SelectedGrupo.idAlumno){
+        this.errorState = true;
+        this.errorMessage = "No puede asignar grupo a un alumno con grupo!."
       }else{
-        this.errorState = true
-        this.errorMessage = "No puede dejar el espacio del grupo en blanco!."
+        if(this.SelectedGrupo.grupo === ""){
+          this.SelectedGrupo.idAlumno = this.idalumno;
+          this._data.addGrupo(this.SelectedGrupo)
+          this.SelectedAlumno.id = ' '
+          this.SelectedGrupo.id = ' '
+          this.SelectedGrupo.grupo = ' '
+          this.errorState = false;
+        }else{
+          this.errorState = true
+          this.errorMessage = "No puede dejar el espacio del grupo en blanco!."
+        }
       }
     }else{
       this.errorState = true
       this.errorMessage = "Debe seleccionar un alumno para asignar!."
-    }
+    }    
   }
 
   Seleccion(id:string){
     this.idalumno = id;
-    console.log(id);
-    
+    this.SelectedGrupo.idAlumno = ""
+    console.log(this.SelectedGrupo.idAlumno);
   }
-
 }
