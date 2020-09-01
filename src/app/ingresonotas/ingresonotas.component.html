@@ -5,7 +5,7 @@
             <p class="sm" id="titulo">Ingrese los datos para confirmar la nota</p>
             <p class="sm">Evaluacion:</p>
             <p>
-                <select name="evaluacion1" [(ngModel)]="Selectednota.evaluacion">
+                <select name="evaluacion1" class="txt" [(ngModel)]="Selectednota.evaluacion">
                     <option>Final Test</option>
                     <option>Oral Evaluation</option>
                     <option>Class Activity</option>
@@ -15,8 +15,8 @@
         </div>
         <div class="col">
             <p class="sm">Grupo:</p>
-            <p>
-                <select name="grupo1" [(ngModel)]="SelectedGrupo.grupo">
+                <p>
+                <select name="grupo1" class="txt" [(ngModel)]="SelectedGrupo.grupo">
                     <option *ngFor="let grupo of grupos" >{{ grupo.grupo }}</option>
                 </select>
                 </p>
@@ -26,8 +26,14 @@
             <div class="col">
                 <p class="sm">alumnos:</p>
                 <p>
-                    <select name="alumno1" [(ngModel)]="SelectedAlumno.nombres">
-                        <option *ngFor="let alumno of alumnos">{{ alumno.nombres }}</option>
+                    <select name="alumno1" class="txt" [(ngModel)]="SelectedAlumno.nombres">
+                        <strong *ngFor="let grupo of grupos">
+                            <ng-container *ngFor="let alumno of alumnos">
+                                <ng-container *ngIf="grupo.idAlumno === alumno.id">
+                                    <option>{{ alumno.nombres }}</option>
+                                </ng-container>
+                            </ng-container>
+                        </strong>    
                     </select>
                 </p>
             </div>
