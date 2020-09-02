@@ -12,6 +12,7 @@ import { AngularFirestoreModule} from '@angular/fire/firestore'
 import { environment } from '../environments/environment';
 import { AdministracionDeGruposComponent } from './administracion-de-grupos/administracion-de-grupos.component';
 import { IngresonotasComponent } from './ingresonotas/ingresonotas.component';
+import { AsistenciaComponent } from './asistencia/asistencia.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { IngresonotasComponent } from './ingresonotas/ingresonotas.component';
     HomeComponent,
     AboutComponent,
     AdministracionDeGruposComponent,
-    IngresonotasComponent
+    IngresonotasComponent,
+    AsistenciaComponent
   ],
   imports: [
     BrowserModule,
