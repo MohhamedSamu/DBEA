@@ -17,3 +17,10 @@ export interface nota {
     idgrupo?:string;
     evaluacion?:string;
 }
+export interface asistencia{
+    id?:string;
+    idGrupo?:string;
+    idAlumno?:string;
+    fecha?:Date;
+    llego?:boolean;
+}

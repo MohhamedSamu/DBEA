@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { map } from 'rxjs/operators';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/firestore'
-import { alumno, grupo } from './models/models';
+import { alumno, grupo, asistencia } from './models/models';
 @Injectable({
   providedIn: 'root'
 })
@@ -13,6 +13,9 @@ export class DataService {
 
   gruposCollection: AngularFirestoreCollection<grupo>;
   grupos: Observable<grupo[]>
+
+  asistenciaCollection: AngularFirestoreCollection<asistencia>;
+  asistencia: Observable<asistencia[]>
   constructor(public afs: AngularFirestore) { 
 
     this.alumnosCollection = this.afs.collection('Alumnos');
@@ -46,6 +49,9 @@ export class DataService {
   getGrupos() {
     return this.grupos;
   }
+  getAsistencias(){
+    return this.asistencia;
+  }
 
   addAlumno(alumno: alumno) {
     this.alumnosCollection.add(alumno);
@@ -53,6 +59,9 @@ export class DataService {
 
   addGrupo(grupo:grupo){
     this.gruposCollection.add(grupo);
+  }
+  addAsistencia(asistencia:asistencia){
+    this.asistenciaCollection.add(asistencia);
   }
 
 }
