@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { map } from 'rxjs/operators';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/firestore'
-import { alumno, grupo } from './models/models';
+import { alumno, grupo, nota } from './models/models';
 @Injectable({
   providedIn: 'root'
 })
@@ -13,13 +13,17 @@ export class DataService {
 
   gruposCollection: AngularFirestoreCollection<grupo>;
   grupos: Observable<grupo[]>
+
+  notasCollection: AngularFirestoreCollection<nota>;
+  notas: Observable<nota[]>
+
+
   constructor(public afs: AngularFirestore) { 
 
     this.alumnosCollection = this.afs.collection('Alumnos');
     this.gruposCollection = this.afs.collection('Grupos');
+    this.notasCollection = this.afs.collection('Notas');
 
-    
-    
     this.alumnos = this.afs.collection('Alumnos').snapshotChanges().pipe(map(changes => {
       return changes.map(a => {
         const data=  a.payload.doc.data() as alumno;
@@ -36,6 +40,14 @@ export class DataService {
         return datas;
       })
     }));
+
+    this.notas = this.afs.collection('Notas').snapshotChanges().pipe(map(changes => {
+      return changes.map(c => {
+        const datas = c.payload.doc.data() as nota;
+        datas.id = c.payload.doc.id;
+        return datas;
+      })
+    }));
     
   }
 
@@ -46,6 +58,10 @@ export class DataService {
   getGrupos() {
     return this.grupos;
   }
+  
+  getNotas() {
+    return this.notas;
+  }
 
   addAlumno(alumno: alumno) {
     this.alumnosCollection.add(alumno);
@@ -53,6 +69,9 @@ export class DataService {
 
   addGrupo(grupo:grupo){
     this.gruposCollection.add(grupo);
+  
   }
-
+  addNotas(nota:nota){
+    this.notasCollection.add(nota);
+  }
 }

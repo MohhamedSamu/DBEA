@@ -8,54 +8,77 @@ import { ConstantPool } from '@angular/compiler';
   selector: 'app-ingresonotas',
   templateUrl: './ingresonotas.component.html',
   styleUrls: ['./ingresonotas.component.scss'],
-  providers: [DataService]
+  providers: [DataService],
 })
-export class IngresonotasComponent implements OnInit {
+export class IngresonotasComponent implements OnInit
+{
   SelectedAlumno: alumno = {
     id: ' ',
     apellidos: ' ',
-    nombres:' '
-  }
+    nombres: ' ',
+  };
   SelectedGrupo: grupo = {
     grupo: ' ',
-    idAlumno:' '
-  }
+    idAlumno: ' ',
+  };
   Selectednota: nota = {
-    nota:0,
-    evaluacion:' ',
-    idAlumno:' ',
-    idgrupo:' ' 
-  }
+    nota: 0,
+    evaluacion: ' ',
+    idAlumno: ' ',
+  };
   errorState: boolean;
   errorstate = false;
   errorMessage: string;
   alumnos: alumno[];
   grupos: grupo[];
-  constructor (private _data: DataService) {
-    
-   }
+  idalumno: string;
+  constructor(private _data: DataService) { }
 
-  ngOnInit(): void {    
+  ngOnInit(): void
+  {
+    this._data.getAlumnos().subscribe((alumnos) =>
+    {
+      this.alumnos = alumnos;
+    });
 
-    this._data.getAlumnos().subscribe(alumnos => {
-      this.alumnos = alumnos;     
-    })
-    
-    this._data.getGrupos().subscribe(grupos => {
-      this.grupos = grupos;     
-    })
+    this._data.getGrupos().subscribe((grupos) =>
+    {
+      this.grupos = grupos;
+    });
   }
 
-  onSubmit(): void{
-  var nombre = this.SelectedAlumno.nombres;
-  var evaluacion= this.Selectednota.evaluacion;
-  var grupo=this.SelectedGrupo.grupo;
-  var nota=this.Selectednota.nota;
-  var i=0;
-  
+  onSubmit(): void
+  {
+    if (this.Selectednota.evaluacion != "")
+    {
+      this.errorState = false
+      if (this.SelectedAlumno.id != " ")
+      {
+        this.errorstate = false
+        if (this.Selectednota.nota != 0) {
+          if (this.Selectednota.nota > -1 && this.Selectednota.nota < 11) {
+            this.errorState = false
+            this.Selectednota.idAlumno = this.SelectedAlumno.id
+            this._data.addNotas(this.Selectednota)
+            this.SelectedAlumno.id = "";
+            this.Selectednota.evaluacion = ""
+            this.Selectednota.idAlumno = ""
+            this.Selectednota.nota = null
+          } else {
+            this.errorState = true
+            this.errorMessage = "Nota debe estar en rango de 0 - 10"
+          }
+        } else {
+          this.errorState = true
+          this.errorMessage = "Nota no ingresadas"
+        }
+      } else{
+        this.errorState = true
+        this.errorMessage = "Alumno no ingresado"
+      }
+    } else {
+      this.errorState = true
+      this.errorMessage = "Evaluacion no ingresada"
+    }
   }
-  Seleccion(id:string){
-
-  }
-
 }

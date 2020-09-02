@@ -14,6 +14,5 @@ export interface nota {
     id?:string;
     nota?:number;
     idAlumno?:string;
-    idgrupo?:string;
     evaluacion?:string;
 }
