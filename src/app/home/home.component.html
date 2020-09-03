@@ -1,16 +1,17 @@
 <div class="container color-light">
-    <form (ngSubmit)="onSubmit()" >
+    <form (ngSubmit)="onSubmit()">
         <div class="col">
             <p class="sm">Ingresa un nuevo alumno aquí.</p>
             <p class="sm">Nombre:</p>
-            <input type="text" class="txt" name="nombres" placeholder="Ej. Linus" [(ngModel)]="alumno.nombres" >
+            <input type="text" class="txt" name="nombres" placeholder="Ej. Linus" [(ngModel)]="alumno.nombres">
         </div>
         <div class="col">
             <p class="sm">Apellido:</p>
-            <input type="text" class="txt" name="apellidos" placeholder="Ej. Torvald" [(ngModel)]="alumno.apellidos" >
+            <input type="text" class="txt" name="apellidos" placeholder="Ej. Torvald" [(ngModel)]="alumno.apellidos">
         </div>
         <div class="col">
             <input type="submit" class="btn" value="Ingresar">
         </div>
     </form>
 </div>
+<app-about></app-about>

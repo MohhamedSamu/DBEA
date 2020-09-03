@@ -7,9 +7,11 @@ import { alumno, grupo, asistencia, nota } from './models/models';
 @Injectable({
   providedIn: 'root'
 })
-export class DataService {
+export class DataService
+{
   alumnosCollection: AngularFirestoreCollection<alumno>;
   alumnos: Observable<alumno[]>
+  alumnoDoc: AngularFirestoreDocument<alumno>
 
   gruposCollection: AngularFirestoreCollection<grupo>;
   grupos: Observable<grupo[]>
@@ -18,69 +20,111 @@ export class DataService {
   notas: Observable<nota[]>
 
   asistenciaCollection: AngularFirestoreCollection<asistencia>;
-  asistencia: Observable<asistencia[]>
-  constructor(public afs: AngularFirestore) { 
+  asistencias: Observable<asistencia[]>
 
-    this.alumnosCollection = this.afs.collection('Alumnos');
+  constructor(public afs: AngularFirestore)
+  {
+
+    this.alumnosCollection = this.afs.collection('Alumnos', ref => ref.orderBy('apellidos', 'asc'));
     this.gruposCollection = this.afs.collection('Grupos');
     this.notasCollection = this.afs.collection('Notas');
+    this.asistenciaCollection = this.afs.collection('Asistencias');
 
-    this.alumnos = this.afs.collection('Alumnos').snapshotChanges().pipe(map(changes => {
-      return changes.map(a => {
-        const data=  a.payload.doc.data() as alumno;
+    this.alumnos = this.alumnosCollection.snapshotChanges().pipe(map(changes =>
+    {
+      return changes.map(a =>
+      {
+        const data = a.payload.doc.data() as alumno;
         data.id = a.payload.doc.id;
         return data;
       })
     }));
-    
 
-    this.grupos = this.afs.collection('Grupos').snapshotChanges().pipe(map(changes => {
-      return changes.map(b => {
+
+    this.grupos = this.afs.collection('Grupos').snapshotChanges().pipe(map(changes =>
+    {
+      return changes.map(b =>
+      {
         const datas = b.payload.doc.data() as grupo;
         datas.id = b.payload.doc.id;
         return datas;
       })
     }));
 
-    this.notas = this.afs.collection('Notas').snapshotChanges().pipe(map(changes => {
-      return changes.map(c => {
+    this.notas = this.afs.collection('Notas').snapshotChanges().pipe(map(changes =>
+    {
+      return changes.map(c =>
+      {
         const datas = c.payload.doc.data() as nota;
         datas.id = c.payload.doc.id;
         return datas;
       })
-    })); 
-  }
+    }));
 
-  getAlumnos() {
+    this.asistencias = this.afs.collection('Asistencias').snapshotChanges().pipe(map(changes =>
+    {
+      return changes.map(d =>
+      {
+        const datas = d.payload.doc.data() as asistencia;
+        datas.id = d.payload.doc.id;
+        return datas;
+      })
+    }));
+
+  }
+  // GETS
+  getAlumnos()
+  {
     return this.alumnos;
   }
-  
-  getGrupos() {
+
+  getGrupos()
+  {
     return this.grupos;
   }
-  
-  getNotas() {
+
+  getNotas()
+  {
     return this.notas;
   }
-  
-  getAsistencias(){
-    return this.asistencia;
+
+  getAsistencias()
+  {
+    return this.asistencias;
   }
 
-  addAlumno(alumno: alumno) {
+
+  // ADDS
+  addAlumno(alumno: alumno)
+  {
     this.alumnosCollection.add(alumno);
   }
 
-  addGrupo(grupo:grupo){
+  addGrupo(grupo: grupo)
+  {
     this.gruposCollection.add(grupo);
-  
+
   }
 
-  addNotas(nota:nota){
+  addNotas(nota: nota)
+  {
     this.notasCollection.add(nota);
   }
 
-  addAsistencia(asistencia:asistencia){
+  addAsistencias(asistencia: asistencia)
+  {
     this.asistenciaCollection.add(asistencia);
+  }
+
+  // deletes
+  deleteAlumno(alumno: alumno){
+    this.alumnoDoc = this.afs.doc(`Alumnos/${alumno.id}`)
+    this.alumnoDoc.delete()
+  }
+  
+  // Editars
+  editarAlumno(alumno:alumno){
+    this.alumnoDoc = this.afs.doc(`Alumnos/${alumno.id}`)
+    this.alumnoDoc.update(alumno)
   }
 }

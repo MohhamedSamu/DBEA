@@ -1,15 +1,36 @@
-<p>
-    Listado de alumnos.
-</p>
-
-
 <div *ngIf="alumnos?.length > 0;else Sinalumnos">
-    <hr>
-    <ul *ngFor="let alumno of alumnos">
-        <li><strong>{{ alumno.apellidos }}</strong>, {{ alumno.nombres }}</li>
-    </ul>
+    <div class="container color-light my">
+        <div class="col">
+            <p>Elige el grupo para visualizar</p>
+            <select [(ngModel)]="SelectedGrupo.grupo" (change)="seleccionGrupo()" name="id">
+                <option *ngFor="let tipo of tipos_grupos">{{ tipo }}</option>
+            </select>
+        </div>
+    </div>
+    <div *ngIf="grupoState">
+        <div *ngFor="let alumno of alumnos">
+            <li *ngIf="alumno.grupo == grupoActual">
+                <div class="container color-light my">
+                    <div class="col">
+                        <strong>{{ alumno.apellidos}}, {{ alumno.nombres}} </strong>
+                        <span class="material-icons" *ngIf="!editState" (click)="editar(alumno)">edit</span>
+                        <span class="material-icons" *ngIf="editState" (click)="clearState()">edit</span>
+                        <div *ngIf="editState && alumnoEditar.id == alumno.id">
+                            <form (ngSubmit)="editarAlumno(alumno)">
+                                <input type="text" class="txt" name="nombres" placeholder="Ej. Linus"
+                                    [(ngModel)]="alumno.nombres">
+                                <input type="text" class="txt" name="apellidos" placeholder="Ej. Torvald"
+                                    [(ngModel)]="alumno.apellidos">
+                                <input type="submit" class="btn amarillo r mx" value="Editar">
+                                <button class="btn rojo r mx" (click)="deleteAlumno(alumno)">Eliminar</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </div>
+    </div>
 </div>
-
 <ng-template #Sinalumnos>
     <hr>
     <h5>No hay alumnos que mostrar</h5>

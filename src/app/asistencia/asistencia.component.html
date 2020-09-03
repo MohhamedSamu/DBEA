@@ -1,27 +1,25 @@
-<form (ngSubmit)="onSubmit">
-    <div class="container color-light">
-        <p class="sm">Grupo:
-
-                <select name="grupo" [(ngModel)]="SelectedGrupo.grupo">
-                    <option [value]="item" *ngFor="let item of tipos_grupos">{{item}}</option>
-                </select> 
-            </p>
-            <ul class="lista" name="alumno1" [(ngModel)]="SelectedAlumno.nombres">
+<div class="container color-light">
+    <form (ngSubmit)="onSubmit()">
+        <div class="col">
+            <ul class="lista" [(ngModel)]="SelectedAlumno.nombres">
                 <p class="sm">Marque que alumnos han asistido</p>
                 <strong>
-                <p class="lis" *ngFor="let alumno of alumnos">
-                    {{ alumno.nombres }},{{alumno.apellidos}} 
-                    <strong *ngFor="let grupo of grupos">
-                    <ng-container *ngIf="grupo.idAlumno === alumno.id">
-                        <ng-container>
-                            {{ grupo.grupo }}
-                        </ng-container>
-                    </ng-container>
-                </strong><input name="Si" type="checkbox"> Si <input name="No" type="checkbox"> No</p>
+                    <p class="lis" *ngFor="let alumno of alumnos">
+                        {{ alumno.nombres }},{{alumno.apellidos}}
+                        <strong *ngFor="let grupo of grupos">
+                            <ng-container *ngIf="grupo.idAlumno === alumno.id">
+                                <ng-container>
+                                    {{ grupo.grupo }}
+                                </ng-container>
+                            </ng-container>
+                        </strong>
+                        <input name="Si" type="checkbox"> Si
+                        <input name="No" type="checkbox"> No
+                    </p>
                 </strong>
-            </ul>  
-            <div class="col">
-                <input type="submit" class="btn" value="Ingresar">
-            </div>
-    </div>
+            </ul>
+            <input type="submit" class="btn" value="Ingresar">
+        </div>
     </form>
+</div>
+<!-- (click)="SeleccionBooleana(true, alumno.id)" -->

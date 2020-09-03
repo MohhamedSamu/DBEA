@@ -14,22 +14,29 @@
                 </p>
             </div>
         </div>
-        <div class="ladoderecho">
-            <div class="col">
-                <p class="sm">alumnos:</p>
-                <select name="alumno1" class="txt" [(ngModel)]="SelectedAlumno.id">
-                    <option value="{{alumno.id}}" *ngFor="let alumno of alumnos">
-                        {{alumno.apellidos}}, {{ alumno.nombres }}</option>
-                </select>
-            </div>
-            <div class="col">
-                <p class="sm">Nota:</p>
-                <input type="number" class="txt" name="nota1" placeholder="Ej. 8" [(ngModel)]="Selectednota.nota">
-            </div>
+        <div class="col">
+            <p class="sm">Seleccione un grupo</p>
+            <select class="txt" [(ngModel)]="SelectedGrupo.grupo" (change)="seleccionGrupo()" name="id">
+                <option *ngFor="let tipo of tipos_grupos">{{ tipo }}</option>
+            </select>
+            <ng-container *ngIf="grupoState">
+                <p class="sm">Seleccione un alumno</p>
+                <div *ngFor="let alumno of alumnos">
+                        <p (click)="SelccionAlumno(alumno.id)" *ngIf="(alumno.grupo == grupoActual) && idalumno == alumno.id; else noSeleccionado">
+                            <strong>-{{ alumno.apellidos}}, {{ alumno.nombres}}</strong>
+                        </p>
+                        <ng-template #noSeleccionado>
+                            <p (click)="SelccionAlumno(alumno.id)" *ngIf="alumno.grupo == grupoActual">{{ alumno.nombres}}</p>
+                        </ng-template>
+                </div>
+            </ng-container>
+            <p class="sm">Nota:</p>
+            <input type="number" class="txt" name="nota1" placeholder="Ej. 8" [(ngModel)]="Selectednota.nota">
         </div>
         <div class="col">
             <input type="submit" class="btn" value="Ingresar">
         </div>
+
     </form>
 </div>
 <div *ngIf="errorState">

@@ -9,17 +9,20 @@ import { alumno } from '../models/models'
 })
 export class HomeComponent implements OnInit {
   alumno: alumno = {
-    // id: ' ',
+    id: ' ',
     apellidos: ' ',
-    nombres:' '
+    nombres:' ',
+    grupo: null,
   }
-  //itemCount: number ;
+  alumnoEditar: alumno
+  editState: boolean = false
+  alumnos: alumno[];
   constructor(private _data: DataService) { }
 
   ngOnInit(): void {
-
-    // this.itemCount = this.alumnos.length;
-
+    this._data.getAlumnos().subscribe((alumnos) => {
+      this.alumnos = alumnos;
+    });
   }
 
   onSubmit(){
@@ -29,5 +32,4 @@ export class HomeComponent implements OnInit {
       this.alumno.nombres = ' ';
     }
   }
-
 }

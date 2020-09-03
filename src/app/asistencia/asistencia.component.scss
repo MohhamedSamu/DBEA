@@ -1,6 +1,9 @@
 .container{
     display: grid;
+    margin: 0 auto;
+    width: 60%;
     grid-template-columns: 50% auto;
+    border-radius: 2em;
 }
 
 .col{
@@ -13,14 +16,15 @@
 .color-light{
     background: #57B3F1;
 }
-select{
+input.txt{
     border: 0;
     padding: 1em;
     width: 80%;
     margin-bottom: 1em;
+    margin-top: 1em;
 }
 
-input.btn {
+.btn {
     border: 0;
     display: block;
     padding: 1em 3em;
@@ -28,4 +32,36 @@ input.btn {
     color: #0036A1;
     margin-bottom: 1em;
     cursor:pointer;
+}
+
+.rojo{
+    background: #ff5656;
+}
+
+.amarillo{
+    background: #fff27c;
+}
+
+.r{
+    float: right;
+}
+
+.mx{
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+li{
+    list-style: none;
+}
+
+.my{
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+select{
+    border: 0;
+    padding: 1em;
+    width: 80%;
+    margin-bottom: 1em;
 }

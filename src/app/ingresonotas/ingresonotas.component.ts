@@ -31,7 +31,14 @@ export class IngresonotasComponent implements OnInit
   errorMessage: string;
   alumnos: alumno[];
   grupos: grupo[];
+
   idalumno: string;
+  tipos_grupos: string[] = ['SEN1', 'SEN2', 'ADV1', 'ADV2'];
+
+  grupoState: boolean = false
+  alumnoEditar: alumno
+  editState: boolean = false
+  grupoActual: string
   constructor(private _data: DataService) { }
 
   ngOnInit(): void
@@ -49,16 +56,18 @@ export class IngresonotasComponent implements OnInit
 
   onSubmit(): void
   {
+    console.log(this.Selectednota.idAlumno);
+    
     if (this.Selectednota.evaluacion != "")
     {
       this.errorState = false
-      if (this.SelectedAlumno.id != " ")
+      if (this.idalumno != " ")
       {
         this.errorstate = false
         if (this.Selectednota.nota != 0) {
           if (this.Selectednota.nota > -1 && this.Selectednota.nota < 11) {
             this.errorState = false
-            this.Selectednota.idAlumno = this.SelectedAlumno.id
+            this.Selectednota.idAlumno = this.idalumno
             this._data.addNotas(this.Selectednota)
             this.SelectedAlumno.id = "";
             this.Selectednota.evaluacion = ""
@@ -80,5 +89,12 @@ export class IngresonotasComponent implements OnInit
       this.errorState = true
       this.errorMessage = "Evaluacion no ingresada"
     }
+  }
+  seleccionGrupo(){
+    this.grupoActual = this.SelectedGrupo.grupo
+    this.grupoState = true
+  }
+  SelccionAlumno(id:string){
+    this.idalumno = id
   }
 }

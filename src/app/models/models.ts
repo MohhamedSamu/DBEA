@@ -2,6 +2,7 @@ export interface alumno{
     id?:string;
     apellidos?:string;
     nombres?:string;
+    grupo?:string;
 }
 
 export interface grupo {
@@ -16,9 +17,9 @@ export interface nota {
     idAlumno?:string;
     evaluacion?:string;
 }
+
 export interface asistencia{
     id?:string;
-    idGrupo?:string;
     idAlumno?:string;
     fecha?:Date;
     llego?:boolean;
