@@ -9,9 +9,9 @@ import { alumno } from '../models/models'
 })
 export class HomeComponent implements OnInit {
   alumno: alumno = {
-    id: ' ',
-    apellidos: ' ',
-    nombres:' ',
+    id: '',
+    apellidos: '',
+    nombres:'',
     grupo: null,
   }
   alumnoEditar: alumno
@@ -29,7 +29,7 @@ export class HomeComponent implements OnInit {
     if (this.alumno.nombres != '' && this.alumno.apellidos != '' ){
       this._data.addAlumno(this.alumno);
       this.alumno.apellidos = '';
-      this.alumno.nombres = ' ';
+      this.alumno.nombres = '';
     }
   }
 }

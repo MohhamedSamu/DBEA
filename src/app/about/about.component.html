@@ -1,3 +1,5 @@
+<mat-slider min="1" max="100" step="1" value="1"></mat-slider>
+
 <div *ngIf="alumnos?.length > 0;else Sinalumnos">
     <div class="container color-light my">
         <div class="col">
@@ -7,10 +9,10 @@
             </select>
         </div>
     </div>
-    <div *ngIf="grupoState">
-        <div *ngFor="let alumno of alumnos">
-            <li *ngIf="alumno.grupo == grupoActual">
-                <div class="container color-light my">
+    <div class="container color-light my">
+        <div *ngIf="grupoState" class="alumnosContainer">
+            <div *ngFor="let alumno of alumnos">
+                <li *ngIf="alumno.grupo == grupoActual;else noPertenece">
                     <div class="col">
                         <strong>{{ alumno.apellidos}}, {{ alumno.nombres}} </strong>
                         <span class="material-icons" *ngIf="!editState" (click)="editar(alumno)">edit</span>
@@ -26,8 +28,27 @@
                             </form>
                         </div>
                     </div>
-                </div>
-            </li>
+                </li>
+                <ng-template #noPertenece>
+                    <li class="lista">
+                        <div class="col">
+                            <strong>{{ alumno.apellidos}}, {{ alumno.nombres}} </strong>
+                            <span class="material-icons" *ngIf="!editState" (click)="editar(alumno)">edit</span>
+                            <span class="material-icons" *ngIf="editState" (click)="clearState()">edit</span>
+                            <div *ngIf="editState && alumnoEditar.id == alumno.id">
+                                <form (ngSubmit)="editarAlumno(alumno)">
+                                    <input type="text" class="txt" name="nombres" placeholder="Ej. Linus"
+                                        [(ngModel)]="alumno.nombres">
+                                    <input type="text" class="txt" name="apellidos" placeholder="Ej. Torvald"
+                                        [(ngModel)]="alumno.apellidos">
+                                    <input type="submit" class="btn amarillo r mx" value="Editar">
+                                    <button class="btn rojo r mx" (click)="deleteAlumno(alumno)">Eliminar</button>
+                                </form>
+                            </div>
+                        </div>
+                    </li>
+                </ng-template>
+            </div>
         </div>
     </div>
 </div>

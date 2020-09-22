@@ -24,3 +24,8 @@ export interface asistencia{
     fecha?:Date;
     llego?:boolean;
 }
+
+export interface usuario{
+    email?:string;
+    password?:string;
+}

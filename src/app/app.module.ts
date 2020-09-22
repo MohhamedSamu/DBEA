@@ -13,7 +13,11 @@ import { environment } from '../environments/environment';
 import { AdministracionDeGruposComponent } from './administracion-de-grupos/administracion-de-grupos.component';
 import { IngresonotasComponent } from './ingresonotas/ingresonotas.component';
 import { AsistenciaComponent } from './asistencia/asistencia.component';
-
+import { NavBarComponent } from './nav-bar/nav-bar.component';
+import { LoginComponent } from './login/login.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatSliderModule } from '@angular/material/slider';
+import { ReactiveFormsModule } from '@angular/forms'
 @NgModule({
   declarations: [
     AppComponent,
@@ -21,14 +25,19 @@ import { AsistenciaComponent } from './asistencia/asistencia.component';
     AboutComponent,
     AdministracionDeGruposComponent,
     IngresonotasComponent,
-    AsistenciaComponent
+    AsistenciaComponent,
+    NavBarComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     AngularFireModule.initializeApp(environment.firebase),
-    AngularFirestoreModule
+    AngularFirestoreModule,
+    BrowserAnimationsModule,
+    MatSliderModule,
+    ReactiveFormsModule
   ],
   providers: [DataService], 
   bootstrap: [AppComponent]
