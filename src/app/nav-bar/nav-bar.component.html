@@ -1,6 +1,11 @@
-<ul>
-    <li><a routerLink="">Alumnos</a></li>
-    <li><a routerLink="admingrupos">Administración de grupos</a></li>
-    <li><a routerLink="notas">Ingreso de notas</a></li>
-    <li><a routerLink="asistencia">Asistencia</a></li>
+<ul *ngIf="_data.userData | async; else showLogin">
+    <li *ngIf="_data.userData | async"><a routerLink="">Alumnos</a></li>
+    <li *ngIf="_data.userData | async"><a routerLink="admingrupos">Administración de grupos</a></li>
+    <li *ngIf="_data.userData | async"><a routerLink="notas">Ingreso de notas</a></li>
+    <li *ngIf="_data.userData | async"><a routerLink="asistencia">Asistencia</a></li>
+    <li ><a (click)="onLogout()">log out</a></li>
 </ul>
+<ng-template #showLogin>
+    <app-login></app-login>
+</ng-template>
+<router-outlet *ngIf="_data.userData | async" ></router-outlet>

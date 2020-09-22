@@ -22,6 +22,7 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     this._data.getAlumnos().subscribe((alumnos) => {
       this.alumnos = alumnos;
+      console.log(alumnos);
     });
   }
 

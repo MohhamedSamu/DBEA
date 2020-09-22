@@ -30,7 +30,11 @@ export class DataService {
 
   public userData: Observable<firebase.User>
   constructor(public afs: AngularFirestore, private afsAuth: AngularFireAuth) {
+
+    
     this.userData = this.afsAuth.authState;
+
+
     this.alumnosCollection = this.afs.collection('Alumnos', (ref) =>
       ref.orderBy('apellidos', 'asc')
     );
@@ -43,6 +47,7 @@ export class DataService {
         return changes.map((a) => {
           const data = a.payload.doc.data() as alumno;
           data.id = a.payload.doc.id;
+          console.log(data);
           return data;
         });
       })
@@ -91,9 +96,7 @@ export class DataService {
   //Log in
   loginByEmail(user: usuario) {
     const { email, password } = user;
-    this.afsAuth.signInWithEmailAndPassword(email, password)
-    .then((res) => console.log('Successfuly', res))
-    .catch(err => console.log('Error', err));
+    return this.afsAuth.signInWithEmailAndPassword(email, password);
   }
 
   logout() {

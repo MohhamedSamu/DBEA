@@ -3,6 +3,7 @@ import { from } from 'rxjs';
 import { DataService } from '../data.service'
 import { usuario } from '../models/models'
 import { FormGroup, FormControl, Validators } from "@angular/forms";
+import { Router } from '@angular/router'
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -10,7 +11,7 @@ import { FormGroup, FormControl, Validators } from "@angular/forms";
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private _data: DataService) { }
+  constructor(private _data: DataService, private route: Router){ }
 
 loginForm = new FormGroup({
   email: new FormControl('' , Validators.required),
@@ -20,7 +21,8 @@ loginForm = new FormGroup({
   ngOnInit(): void {}
   
   onLogin(form: usuario){
-    this._data.loginByEmail(form);
+    this._data.loginByEmail(form)
+    .then((res) => this.route.navigate(['/']))
+    .catch(err => console.log('Error', err));
   }
-  
 }
