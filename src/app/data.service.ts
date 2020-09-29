@@ -9,31 +9,36 @@ import {
 } from '@angular/fire/firestore';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { alumno, grupo, asistencia, nota, usuario } from './models/models';
+import { Router } from '@angular/router';
 @Injectable({
   providedIn: 'root',
 })
 export class DataService {
+
+  newMaestro: any;
+
   alumnosCollection: AngularFirestoreCollection<alumno>;
   alumnos: Observable<alumno[]>;
   alumnoDoc: AngularFirestoreDocument<alumno>;
-
+  
   gruposCollection: AngularFirestoreCollection<grupo>;
   grupos: Observable<grupo[]>;
   grupoDoc: AngularFirestoreDocument<grupo>;
-
+  
   notasCollection: AngularFirestoreCollection<nota>;
   notas: Observable<nota[]>;
-
+  
   asistenciaCollection: AngularFirestoreCollection<asistencia>;
   asistencias: Observable<asistencia[]>;
+  asistenciaDoc: AngularFirestoreDocument<asistencia>;
 
 
   public userData: Observable<firebase.User>
-  constructor(public afs: AngularFirestore, private afsAuth: AngularFireAuth) {
+  constructor(public afs: AngularFirestore, private afsAuth: AngularFireAuth , private router: Router) {
 
     
     this.userData = this.afsAuth.authState;
-
+    
 
     this.alumnosCollection = this.afs.collection('Alumnos', (ref) =>
       ref.orderBy('apellidos', 'asc')
@@ -47,11 +52,15 @@ export class DataService {
         return changes.map((a) => {
           const data = a.payload.doc.data() as alumno;
           data.id = a.payload.doc.id;
-          console.log(data);
           return data;
         });
       })
     );
+
+    async function getDoc(id) {
+      const snapshot = await this.asistenciaCollection.doc(id).get();
+      return snapshot.data();
+    }
 
     this.grupos = this.afs
       .collection('Grupos')
@@ -87,13 +96,27 @@ export class DataService {
           return changes.map((d) => {
             const datas = d.payload.doc.data() as asistencia;
             datas.id = d.payload.doc.id;
-            return datas;
+           return datas;
           });
         })
       );
+  }//final del constructor y obtencion de datos
+
+  createUser(user){
+    this.afsAuth.createUserWithEmailAndPassword( user.email, user.password)
+    .then( userCredential => {
+      this.newMaestro = user;
+      userCredential.user.updateProfile( {
+        displayName: user.firstname + ' ' + user.lastname
+      });
+
+    })
   }
 
-  //Log in
+  insertUserData(userCredential: firebase.auth.UserCredential){
+
+  }
+  
   loginByEmail(user: usuario) {
     const { email, password } = user;
     return this.afsAuth.signInWithEmailAndPassword(email, password);
@@ -154,10 +177,12 @@ export class DataService {
   //   this.alumnoDoc = this.afs.doc(`Alumnos/${alumno.id}`)
   //   this.alumnoDoc.delete()
   // }
-
-  // Editars
-  editarAlumno(alumno: alumno) {
-    this.alumnoDoc = this.afs.doc(`Alumnos/${alumno.id}`);
+  editarAlumno(alumno){
+    this.alumnoDoc = this.afs.doc(`Alumnos/${alumno.id}`)
     this.alumnoDoc.update(alumno);
+  }
+  editarAsistencia(asistencia){
+    this.asistenciaDoc = this.afs.doc(`Asistencias/${asistencia.id}`)
+    this.asistenciaDoc.update(asistencia);
   }
 }

@@ -37,15 +37,19 @@ export class AsistenciaComponent implements OnInit
   idalumno: string;
   llego: boolean;
   tipos_grupos: string[] = ["SEN1", "SEN2", "ADV1", "ADV2"];
-  constructor(private router: Router, private _data: DataService)
-  {
-  }
+  fecha : Date = new Date();
+  grupoState: boolean=false
+  fechaHoy : string;
+  banderaAsistencia : boolean = true;
+  grupoActual:string
+  constructor(private _data: DataService){}
+  
   ngOnInit(): void
   {
+    this.fechaHoy = ((this.fecha.getDate()) + ", " + (this.fecha.getMonth() + 1) + ", " + (this.fecha.getFullYear()));
     this._data.getAlumnos().subscribe(alumnos =>
     {
-      // console.log(alumnos);
-      this.alumnos = alumnos
+      this.alumnos = alumnos;
     })
     this._data.getGrupos().subscribe(grupos =>
     {
@@ -55,44 +59,64 @@ export class AsistenciaComponent implements OnInit
     {
       this.asistencias = asistencias;
     })
-
-    console.log(this.alumnos);
-
   }
 
-  onSubmit(): void
-  {
-    if (this.idalumno)
-    {
-      if (this.SelectedGrupo.idAlumno)
-      {
-        this.SelectedAsistencia.idAlumno = this.idalumno;
-        this._data.addAsistencias(this.SelectedAsistencia);
-        this.SelectedAsistencia.llego = true;
-        this._data.addAsistencias(this.SelectedAsistencia);
-        this.errorState = false;
-      } else
-      {
-        this.errorState = true;
-        this.errorMessage = "No se encontro el grupo";
+  registrarAsistenciaSi(id){
+    if (this.asistencias.length === 0){
+      this.SelectedAsistencia.idAlumno = id;
+      this.SelectedAsistencia.fecha = this.fechaHoy;
+      this.SelectedAsistencia.llego = true;
+      this._data.addAsistencias(this.SelectedAsistencia);
+    }else{
+      for (let x = 0; x < this.asistencias.length; x-=-1){
+        if (this.asistencias[x].fecha == this.fechaHoy && this.asistencias[x].idAlumno == id){
+            this.SelectedAsistencia.idAlumno = id;
+            this.SelectedAsistencia.fecha = this.fechaHoy;
+            this.SelectedAsistencia.llego = true;
+            this.SelectedAsistencia.id = this.asistencias[x].id;
+            this._data.editarAsistencia(this.SelectedAsistencia);
+            this.banderaAsistencia = false;
+        }
       }
-    } else
-    {
-      this.errorState = true;
-      this.errorMessage = "No se encontro el alumno";
-
+      if (this.banderaAsistencia){
+      this.SelectedAsistencia.idAlumno = id;
+      this.SelectedAsistencia.fecha = this.fechaHoy;
+      this.SelectedAsistencia.llego = true;
+      this._data.addAsistencias(this.SelectedAsistencia);
+      }
     }
   }
-  Seleccion(id: string)
-  {
-    this.idalumno = id;
-    this.SelectedAsistencia.idAlumno = ""
-    console.log(this.SelectedAsistencia.idAlumno);
+  
+  registrarAsistenciaNo(id){
+    if (this.asistencias.length === 0){
+      this.SelectedAsistencia.idAlumno = id;
+      this.SelectedAsistencia.fecha = this.fechaHoy;
+      this.SelectedAsistencia.llego = false;
+      this._data.addAsistencias(this.SelectedAsistencia);
+    }else{
+      for (let x = 0; x < this.asistencias.length; x-=-1){
+        if (this.asistencias[x].fecha == this.fechaHoy && this.asistencias[x].idAlumno == id){
+            this.SelectedAsistencia.idAlumno = id;
+            this.SelectedAsistencia.fecha = this.fechaHoy;
+            this.SelectedAsistencia.llego = false;
+            this.SelectedAsistencia.id = this.asistencias[x].id;
+            this._data.editarAsistencia(this.SelectedAsistencia);
+            this.banderaAsistencia = false;
+        }
+      }
+      if (this.banderaAsistencia){
+      this.SelectedAsistencia.idAlumno = id;
+      this.SelectedAsistencia.fecha = this.fechaHoy;
+      this.SelectedAsistencia.llego = false;
+      this._data.addAsistencias(this.SelectedAsistencia);
+      }
+    }
   }
-  Seleccion2(asistio: boolean)
-  {
-    this.llego = asistio;
-    this.SelectedAsistencia.llego = true;
-    console.log(this.SelectedAsistencia.llego);
+  seleccionGrupo(){
+    this.grupoActual = this.SelectedGrupo.grupo
+    this.grupoState = true
+  }
+  guardar(){
+    // aki deberia cerrar la opcion de asignar asistencia
   }
 }

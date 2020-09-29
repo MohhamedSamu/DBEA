@@ -1,0 +1,28 @@
+<mat-card class="my-card">
+    <mat-card-title> Registrar Maestro </mat-card-title>
+    <form #userRegForm="ngForm" (ngSubmit)="register(userRegForm)">
+        <mat-card-content>
+            <mat-card-content>
+                <mat-form-field>
+                    <mat-label>First Name</mat-label>
+                    <input matInput ngModel #firstname placeholder="First name" name="fname" required>
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>Last Name</mat-label>
+                    <input matInput ngModel #lastname placeholder="Last Name" name="lname" required>
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>Email</mat-label>
+                    <input matInput ngModel #email placeholder="Email" name="email">
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>Password</mat-label>
+                    <input matInput ngModel #password placeholder="Password" name="password">
+                </mat-form-field>
+            </mat-card-content>
+        </mat-card-content>
+        <mat-card-actions>
+            <button mat-raised-button color="primary">Registrar</button>
+        </mat-card-actions>
+    </form>
+</mat-card>

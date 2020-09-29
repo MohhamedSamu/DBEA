@@ -1,25 +1,34 @@
 <div class="container color-light">
-    <form (ngSubmit)="onSubmit()">
-        <div class="col">
-            <ul class="lista" [(ngModel)]="SelectedAlumno.nombres">
-                <p class="sm">Marque que alumnos han asistido</p>
-                <strong>
-                    <p class="lis" *ngFor="let alumno of alumnos">
-                        {{ alumno.nombres }},{{alumno.apellidos}}
-                        <strong *ngFor="let grupo of grupos">
-                            <ng-container *ngIf="grupo.idAlumno === alumno.id">
-                                <ng-container>
-                                    {{ grupo.grupo }}
-                                </ng-container>
-                            </ng-container>
-                        </strong>
-                        <input name="Si" type="checkbox"> Si
-                        <input name="No" type="checkbox"> No
-                    </p>
+    <div class="col">
+       <!---- <p class="sm">Seleccione un grupo</p>
+        <select class="txt" [(ngModel)]="SelectedGrupo.grupo" (change)="seleccionGrupo()" name="id">
+            <option *ngFor="let tipo of tipos_grupos">{{ tipo }}</option>
+        </select> --->
+        
+        <p class="sm">Marque que alumnos han asistido</p>
+            <p class="lis" *ngFor="let alumno of alumnos"><!--(Click)="SelccionAlumno(alumno.id)" *ngIf="alumno.grupo == grupoActual">-->
+                {{ alumno.nombres }},{{alumno.apellidos}}
+                <strong *ngFor="let grupo of grupos">
+                    <ng-container *ngIf="grupo.idAlumno === alumno.id">
+                        <ng-container>
+                            {{ grupo.grupo }}
+                        </ng-container>
+                    </ng-container>
                 </strong>
-            </ul>
-            <input type="submit" class="btn" value="Ingresar">
-        </div>
-    </form>
+                <input name="{{ alumno.id }}" id="{{ alumno.id }}si" type="radio"
+                (click)="registrarAsistenciaSi(alumno.id)">
+                <label for="{{ alumno.id }}si">Si</label>
+                <input name="{{ alumno.id }}" id="{{ alumno.id }}no" type="radio"
+                (click)="registrarAsistenciaNo(alumno.id)">
+                <label for="{{ alumno.id }}no">No</label>
+            </p>
+            <input type="button" value="Guardar cambios" (click)="guardar()">
+    </div>
 </div>
 <!-- (click)="SeleccionBooleana(true, alumno.id)" -->
+
+<p *ngFor="let asistencia of asistencias">
+    <strong *ngIf="asistencia.fecha == this.fechaHoy">
+        {{ asistencia.idAlumno }} -- {{ asistencia.fecha }} -- {{ asistencia.llego }}
+    </strong>
+</p>

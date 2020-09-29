@@ -53,7 +53,9 @@ export class IngresonotasComponent implements OnInit
       this.grupos = grupos;
     });
   }
-
+  ingresoNotas(id){
+    console.log("el id " + id + " obtuvo " );
+  }
   onSubmit(): void
   {
     console.log(this.Selectednota.idAlumno);

@@ -21,7 +21,7 @@ export interface nota {
 export interface asistencia{
     id?:string;
     idAlumno?:string;
-    fecha?:Date;
+    fecha?:string;
     llego?:boolean;
 }
 
