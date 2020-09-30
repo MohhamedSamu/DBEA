@@ -10,7 +10,7 @@ import { Router } from '@angular/router'
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-
+  errorData: any;
   constructor(private _data: DataService, private route: Router){ }
 
 loginForm = new FormGroup({
@@ -18,11 +18,13 @@ loginForm = new FormGroup({
   password: new FormControl('', Validators.required)
 })
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this._data.eventRegError$.subscribe( data => {
+      this.errorData = data;
+    })
+  }
   
   onLogin(form: usuario){
-    this._data.loginByEmail(form)
-    .then((res) => this.route.navigate(['/']))
-    .catch(err => console.log('Error', err));
+    this._data.loginByEmail(form);
   }
 }

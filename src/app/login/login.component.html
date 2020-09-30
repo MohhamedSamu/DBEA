@@ -1,4 +1,7 @@
 <mat-card>
+    <div *ngIf="errorData">
+        <p color="red">{{ errorData.message }}</p>
+    </div>
     <mat-card-title> Login </mat-card-title>
     <form [formGroup]="loginForm" (ngSubmit)="onLogin(loginForm.value)">
         <mat-card-content>

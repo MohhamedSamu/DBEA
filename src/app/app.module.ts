@@ -23,6 +23,7 @@ import { ReactiveFormsModule } from '@angular/forms'
 import {MatButtonModule} from '@angular/material/button';
 import { RegisterComponent } from './register/register.component';
 import {MatSliderModule} from '@angular/material/slider';
+import { AdminComponent } from './admin/admin.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -33,7 +34,8 @@ import {MatSliderModule} from '@angular/material/slider';
     AsistenciaComponent,
     NavBarComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    AdminComponent
   ],
   imports: [
     BrowserModule,

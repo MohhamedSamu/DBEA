@@ -26,6 +26,9 @@ export interface asistencia{
 }
 
 export interface usuario{
+    id?:string;
     email?:string;
-    password?:string;
+    firstname?:string;
+    lastname?:string;
+    role?:string;
 }

@@ -14,38 +14,42 @@ import { Router } from '@angular/router';
   providedIn: 'root',
 })
 export class DataService {
-
+  private eventRegError = new BehaviorSubject<string>('');
+  eventRegError$ = this.eventRegError.asObservable();
   newMaestro: any;
 
   alumnosCollection: AngularFirestoreCollection<alumno>;
   alumnos: Observable<alumno[]>;
   alumnoDoc: AngularFirestoreDocument<alumno>;
-  
+
   gruposCollection: AngularFirestoreCollection<grupo>;
   grupos: Observable<grupo[]>;
   grupoDoc: AngularFirestoreDocument<grupo>;
-  
+
   notasCollection: AngularFirestoreCollection<nota>;
   notas: Observable<nota[]>;
-  
+
   asistenciaCollection: AngularFirestoreCollection<asistencia>;
   asistencias: Observable<asistencia[]>;
   asistenciaDoc: AngularFirestoreDocument<asistencia>;
 
-
-  public userData: Observable<firebase.User>
-  constructor(public afs: AngularFirestore, private afsAuth: AngularFireAuth , private router: Router) {
-
-    
-    this.userData = this.afsAuth.authState;
-    
-
+  usersCollection: AngularFirestoreCollection<usuario>;
+  users: Observable<usuario[]>;
+  userDoc: AngularFirestoreDocument<usuario>;
+  
+  public userData: Observable<firebase.User>;
+  constructor(
+    public afs: AngularFirestore,
+    private afsAuth: AngularFireAuth,
+    private router: Router
+  ) {
     this.alumnosCollection = this.afs.collection('Alumnos', (ref) =>
       ref.orderBy('apellidos', 'asc')
     );
     this.gruposCollection = this.afs.collection('Grupos');
     this.notasCollection = this.afs.collection('Notas');
     this.asistenciaCollection = this.afs.collection('Asistencias');
+    this.usersCollection = this.afs.collection('Users');
 
     this.alumnos = this.alumnosCollection.snapshotChanges().pipe(
       map((changes) => {
@@ -56,12 +60,6 @@ export class DataService {
         });
       })
     );
-
-    async function getDoc(id) {
-      const snapshot = await this.asistenciaCollection.doc(id).get();
-      return snapshot.data();
-    }
-
     this.grupos = this.afs
       .collection('Grupos')
       .snapshotChanges()
@@ -96,30 +94,66 @@ export class DataService {
           return changes.map((d) => {
             const datas = d.payload.doc.data() as asistencia;
             datas.id = d.payload.doc.id;
-           return datas;
+            return datas;
           });
         })
       );
-  }//final del constructor y obtencion de datos
 
-  createUser(user){
-    this.afsAuth.createUserWithEmailAndPassword( user.email, user.password)
-    .then( userCredential => {
-      this.newMaestro = user;
-      userCredential.user.updateProfile( {
-        displayName: user.firstname + ' ' + user.lastname
+    this.users = this.afs
+      .collection('Users')
+      .snapshotChanges()
+      .pipe(
+        map((changes) => {
+          return changes.map((d) => {
+            const datas = d.payload.doc.data() as usuario;
+            datas.id = d.payload.doc.id;
+            return datas;
+          });
+        })
+      );
+  } //final del constructor y obtencion de datos
+
+  getUserState() {
+    return this.afsAuth.authState;
+  }
+
+  createUser(user) {
+    this.afsAuth
+      .createUserWithEmailAndPassword(user.email, user.password)
+      .then((userCredential) => {
+        this.newMaestro = user;
+        userCredential.user.updateProfile({
+          displayName: user.fname + ' ' + user.lname,
+        });
+        this.insertUserData(userCredential).then(() => {
+          this.router.navigate(['']);
+        });
+      })
+      .catch((error) => {
+        this.eventRegError.next(error);
       });
-
-    })
   }
 
-  insertUserData(userCredential: firebase.auth.UserCredential){
-
+  insertUserData(userCredential: firebase.auth.UserCredential) {
+    return this.afs.doc(`Users/${userCredential.user.uid}`).set({
+      email: this.newMaestro.email,
+      firstname: this.newMaestro.fname,
+      lastname: this.newMaestro.lname,
+      role: 'Maestro',
+    });
   }
-  
-  loginByEmail(user: usuario) {
-    const { email, password } = user;
-    return this.afsAuth.signInWithEmailAndPassword(email, password);
+
+  loginByEmail(user) {
+    this.afsAuth
+      .signInWithEmailAndPassword(user.email, user.password)
+      .then((userCredetial) => {
+        if (userCredetial) {
+          this.router.navigate(['']);
+        }
+      })
+      .catch((error) => {
+        this.eventRegError.next(error);
+      });
   }
 
   logout() {
@@ -141,6 +175,10 @@ export class DataService {
 
   getAsistencias() {
     return this.asistencias;
+  }
+
+  getUsers() {
+    return this.users;
   }
 
   // ADDS
@@ -177,12 +215,12 @@ export class DataService {
   //   this.alumnoDoc = this.afs.doc(`Alumnos/${alumno.id}`)
   //   this.alumnoDoc.delete()
   // }
-  editarAlumno(alumno){
-    this.alumnoDoc = this.afs.doc(`Alumnos/${alumno.id}`)
+  editarAlumno(alumno) {
+    this.alumnoDoc = this.afs.doc(`Alumnos/${alumno.id}`);
     this.alumnoDoc.update(alumno);
   }
-  editarAsistencia(asistencia){
-    this.asistenciaDoc = this.afs.doc(`Asistencias/${asistencia.id}`)
+  editarAsistencia(asistencia) {
+    this.asistenciaDoc = this.afs.doc(`Asistencias/${asistencia.id}`);
     this.asistenciaDoc.update(asistencia);
   }
 }
