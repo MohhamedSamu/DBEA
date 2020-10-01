@@ -1,6 +1,6 @@
 <mat-card>
     <div *ngIf="errorData">
-        <p color="red">{{ errorData.message }}</p>
+        <p color="primary">{{ errorData.message }}</p>
     </div>
     <mat-card-title> Registrar Maestro </mat-card-title>
     <form #userRegForm="ngForm" (ngSubmit)="register(userRegForm)">

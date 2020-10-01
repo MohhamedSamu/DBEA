@@ -1,1 +1,28 @@
-<p>admin works!</p>
+<div *ngIf="esAdmin()">
+    <mat-accordion class="container">
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    Registrar maestro
+                </mat-panel-title>
+                <mat-panel-description>
+                    Ingresa un nuevo maestro.
+                </mat-panel-description>
+            </mat-expansion-panel-header>
+            <app-register></app-register>
+        </mat-expansion-panel>
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    Finalizar año
+                </mat-panel-title>
+                <mat-panel-description>
+                    Dar por finalizado el año.
+                </mat-panel-description>
+            </mat-expansion-panel-header>
+            tas seguro?
+            <button type="submit" mat-raised-button color="primary">Posi wey</button>
+            <button type="submit" mat-raised-button color="">Posno wey</button>
+        </mat-expansion-panel>
+    </mat-accordion>
+</div>
