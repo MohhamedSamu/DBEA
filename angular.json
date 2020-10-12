@@ -19,6 +19,9 @@
           "options": {
             "allowedCommonJsDependencies": [
               "firebase/app",
+              "@firebase/auth",
+              "rxjs/BehaviorSubject",
+              "rxjs-compat/BehaviorSubject",
               "@firebase/app",
               "@firebase/firestore",
               "@firebase/component",

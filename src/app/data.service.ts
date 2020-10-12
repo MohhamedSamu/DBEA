@@ -8,7 +8,7 @@ import {
   AngularFirestoreDocument,
 } from '@angular/fire/firestore';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { alumno, grupo, asistencia, nota, usuario } from './models/models';
+import { alumno, asistencia, nota, usuario } from './models/models';
 import { Router } from '@angular/router';
 @Injectable({
   providedIn: 'root',
@@ -21,10 +21,6 @@ export class DataService {
   alumnosCollection: AngularFirestoreCollection<alumno>;
   alumnos: Observable<alumno[]>;
   alumnoDoc: AngularFirestoreDocument<alumno>;
-
-  gruposCollection: AngularFirestoreCollection<grupo>;
-  grupos: Observable<grupo[]>;
-  grupoDoc: AngularFirestoreDocument<grupo>;
 
   notasCollection: AngularFirestoreCollection<nota>;
   notas: Observable<nota[]>;
@@ -46,7 +42,6 @@ export class DataService {
     this.alumnosCollection = this.afs.collection('Alumnos', (ref) =>
       ref.orderBy('apellidos', 'asc')
     );
-    this.gruposCollection = this.afs.collection('Grupos');
     this.notasCollection = this.afs.collection('Notas');
     this.asistenciaCollection = this.afs.collection('Asistencias');
     this.usersCollection = this.afs.collection('Users');
@@ -60,18 +55,6 @@ export class DataService {
         });
       })
     );
-    this.grupos = this.afs
-      .collection('Grupos')
-      .snapshotChanges()
-      .pipe(
-        map((changes) => {
-          return changes.map((b) => {
-            const datas = b.payload.doc.data() as grupo;
-            datas.id = b.payload.doc.id;
-            return datas;
-          });
-        })
-      );
 
     this.notas = this.afs
       .collection('Notas')
@@ -165,10 +148,6 @@ export class DataService {
     return this.alumnos;
   }
 
-  getGrupos() {
-    return this.grupos;
-  }
-
   getNotas() {
     return this.notas;
   }
@@ -186,10 +165,6 @@ export class DataService {
     this.alumnosCollection.add(alumno);
   }
 
-  addGrupo(grupo: grupo) {
-    this.gruposCollection.add(grupo);
-  }
-
   addNotas(nota: nota) {
     this.notasCollection.add(nota);
   }
@@ -202,10 +177,6 @@ export class DataService {
   deleteAlumno(alumno: alumno) {
     this.alumnoDoc = this.afs.doc(`Alumnos/${alumno.id}`);
     this.alumnoDoc.delete();
-  }
-  deleteGrupo(grupo: grupo) {
-    this.grupoDoc = this.afs.doc(`Grupos/${grupo.id}`);
-    this.grupoDoc.delete();
   }
   // deleteNota(alumno: alumno){
   //   this.alumnoDoc = this.afs.doc(`Alumnos/${alumno.id}`)

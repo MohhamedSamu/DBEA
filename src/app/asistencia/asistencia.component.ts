@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from '../data.service';
-import { alumno, grupo, asistencia } from '../models/models'
+import { alumno, asistencia } from '../models/models'
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { ConstantPool } from '@angular/compiler';
@@ -20,10 +20,6 @@ export class AsistenciaComponent implements OnInit
     apellidos: '',
     nombres: ''
   }
-  SelectedGrupo: grupo = {
-    grupo: ' ',
-    idAlumno: ' '
-  }
   SelectedAsistencia: asistencia = {
     idAlumno: ' ',
     llego: false
@@ -32,7 +28,6 @@ export class AsistenciaComponent implements OnInit
   errorState: boolean;
   errorstate = false;
   alumnos: alumno[];
-  grupos: grupo[];
   asistencias: asistencia[];
   idalumno: string;
   llego: boolean;
@@ -50,10 +45,6 @@ export class AsistenciaComponent implements OnInit
     this._data.getAlumnos().subscribe(alumnos =>
     {
       this.alumnos = alumnos;
-    })
-    this._data.getGrupos().subscribe(grupos =>
-    {
-      this.grupos = grupos;
     })
     this._data.getAsistencias().subscribe(asistencias =>
     {
@@ -113,7 +104,7 @@ export class AsistenciaComponent implements OnInit
     }
   }
   seleccionGrupo(){
-    this.grupoActual = this.SelectedGrupo.grupo
+    this.grupoActual = this.SelectedAlumno.grupo
     this.grupoState = true
   }
   guardar(){

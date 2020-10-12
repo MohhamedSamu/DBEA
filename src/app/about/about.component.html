@@ -1,55 +1,40 @@
-<div *ngIf="alumnos?.length > 0;else Sinalumnos">
-    <div class="container color-light my">
-        <div class="col">
-            <p>Elige el grupo para visualizar</p>
-            <select [(ngModel)]="SelectedGrupo.grupo" (change)="seleccionGrupo()" name="id">
-                <option *ngFor="let tipo of tipos_grupos">{{ tipo }}</option>
-            </select>
-        </div>
+<mat-card class="container my" *ngIf="alumnos?.length > 0;else Sinalumnos">
+    <div class="col">
+        <mat-card-title> Chose a group </mat-card-title>
     </div>
-    <div class="container color-light my">
-        <div *ngIf="grupoState" class="alumnosContainer">
-            <div *ngFor="let alumno of alumnos">
-                <li *ngIf="alumno.grupo == grupoActual;else noPertenece">
-                    <div class="col">
-                        <strong>{{ alumno.apellidos}}, {{ alumno.nombres}} </strong>
-                        <span class="material-icons" *ngIf="!editState" (click)="editar(alumno)">edit</span>
-                        <span class="material-icons" *ngIf="editState" (click)="clearState()">edit</span>
-                        <div *ngIf="editState && alumnoEditar.id == alumno.id">
-                            <form (ngSubmit)="editarAlumno(alumno)">
-                                <input type="text" class="txt" name="nombres" placeholder="Ej. Linus"
-                                    [(ngModel)]="alumno.nombres">
-                                <input type="text" class="txt" name="apellidos" placeholder="Ej. Torvald"
-                                    [(ngModel)]="alumno.apellidos">
-                                <input type="submit" class="btn amarillo r mx" value="Editar">
-                                <button class="btn rojo r mx" (click)="deleteAlumno(alumno)">Eliminar</button>
-                            </form>
-                        </div>
-                    </div>
-                </li>
-                <ng-template #noPertenece>
-                    <li class="lista">
-                        <div class="col">
-                            <strong>{{ alumno.apellidos}}, {{ alumno.nombres}} </strong>
-                            <span class="material-icons" *ngIf="!editState" (click)="editar(alumno)">edit</span>
-                            <span class="material-icons" *ngIf="editState" (click)="clearState()">edit</span>
-                            <div *ngIf="editState && alumnoEditar.id == alumno.id">
-                                <form (ngSubmit)="editarAlumno(alumno)">
-                                    <input type="text" class="txt" name="nombres" placeholder="Ej. Linus"
-                                        [(ngModel)]="alumno.nombres">
-                                    <input type="text" class="txt" name="apellidos" placeholder="Ej. Torvald"
-                                        [(ngModel)]="alumno.apellidos">
-                                    <input type="submit" class="btn amarillo r mx" value="Editar">
-                                    <button class="btn rojo r mx" (click)="deleteAlumno(alumno)">Eliminar</button>
-                                </form>
-                            </div>
-                        </div>
-                    </li>
-                </ng-template>
+    <div class="col">
+        <mat-form-field>
+            <mat-label>Group</mat-label>
+            <mat-select [(ngModel)]="SelectedAlumno.grupo" (valueChange)="cambio()">
+                <mat-option *ngFor="let tipo of tipos_grupos" value="{{ tipo }}">{{ tipo }}</mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+    <div class="col">
+        <div *ngFor="let alumno of alumnos">
+            <div *ngIf="alumno.grupo === SelectedAlumno.grupo">
+                <strong>{{ alumno.apellidos}}, {{ alumno.nombres}} </strong>
+                <span class="material-icons" *ngIf="!editState" (click)="editar(alumno)">edit</span>
+                <span class="material-icons" *ngIf="editState" (click)="clearState()">edit</span>
+                <div *ngIf="editState && alumnoEditar.id == alumno.id">
+                    <form (ngSubmit)="editarAlumno(alumno)">
+                            <mat-form-field>
+                                <input type="text" matInput color="White" name="nombres" placeholder="Names"
+                                    [(ngModel)]="alumno.nombres" class="mx">
+                            </mat-form-field>
+                            <!-- <br> -->
+                            <mat-form-field>
+                                <input type="text" matInput name="apellidos" placeholder="Last names"
+                                    [(ngModel)]="alumno.apellidos" class="mx">
+                            </mat-form-field>
+                            <button class="btn rojo r mx" (click)="deleteAlumno(alumno)" mat-flat-button>Delete</button>
+                            <button class="btn amarillo r mx" type="submit" mat-flat-button>Edit</button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
-</div>
+</mat-card>
 <ng-template #Sinalumnos>
     <hr>
     <h5>No hay alumnos que mostrar</h5>

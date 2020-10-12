@@ -1,11 +1,11 @@
-<div *ngIf="grupos.length == alumnos.length; else sinAlumnos">
+<div *ngIf="alumnos.length > 0; else sinAlumnos">
     <p>Ya no hay alumnos para asignar!</p>
 </div>
 <ng-template #sinAlumnos>
     <div class="container color-light">
             <div class="col">
                 <p class="sm">Seleccione un alumno para asignarle un grupo</p>
-                <select [(ngModel)]="SelectedGrupo.grupo" (change)="seleccionGrupo()" name="id">
+                <select [(ngModel)]="SelectedAlumno.grupo" (change)="seleccionGrupo()" name="id">
                     <option *ngFor="let tipo of tipos_grupos">{{ tipo }}</option>
                 </select>
                 <ng-container *ngIf="grupoState; else noGrupo">
@@ -31,6 +31,7 @@
                 </ng-template>
             </div>
     </div>
+
 </ng-template>
 <div *ngIf="errorState">
     <p>{{ errorMessage }}</p>

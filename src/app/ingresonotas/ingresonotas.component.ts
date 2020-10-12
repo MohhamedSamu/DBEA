@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from '../data.service';
-import { alumno, grupo, nota } from '../models/models';
+import { alumno, nota } from '../models/models';
 import { Observable } from 'rxjs';
 import { ConstantPool } from '@angular/compiler';
 
@@ -17,10 +17,6 @@ export class IngresonotasComponent implements OnInit
     apellidos: ' ',
     nombres: ' ',
   };
-  SelectedGrupo: grupo = {
-    grupo: ' ',
-    idAlumno: ' ',
-  };
   Selectednota: nota = {
     nota: 0,
     evaluacion: ' ',
@@ -30,7 +26,6 @@ export class IngresonotasComponent implements OnInit
   errorstate = false;
   errorMessage: string;
   alumnos: alumno[];
-  grupos: grupo[];
 
   idalumno: string;
   tipos_grupos: string[] = ['SEN1', 'SEN2', 'ADV1', 'ADV2'];
@@ -48,10 +43,6 @@ export class IngresonotasComponent implements OnInit
       this.alumnos = alumnos;
     });
 
-    this._data.getGrupos().subscribe((grupos) =>
-    {
-      this.grupos = grupos;
-    });
   }
   ingresoNotas(id){
     console.log("el id " + id + " obtuvo " );
@@ -93,7 +84,7 @@ export class IngresonotasComponent implements OnInit
     }
   }
   seleccionGrupo(){
-    this.grupoActual = this.SelectedGrupo.grupo
+    this.grupoActual = this.SelectedAlumno.grupo
     this.grupoState = true
   }
   SelccionAlumno(id:string){

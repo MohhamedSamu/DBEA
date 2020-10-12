@@ -1,17 +1,37 @@
-<div class="container color-light">
+<mat-card class="container">
     <form (ngSubmit)="onSubmit()">
         <div class="col">
-            <p class="sm">Ingresa un nuevo alumno aquí.</p>
-            <p class="sm">Nombre:</p>
-            <input type="text" class="txt" name="nombres" placeholder="Ej. Linus" [(ngModel)]="alumno.nombres">
+            <mat-card-title> New student </mat-card-title>
         </div>
-        <div class="col">
-            <p class="sm">Apellido:</p>
-            <input type="text" class="txt" name="apellidos" placeholder="Ej. Torvald" [(ngModel)]="alumno.apellidos">
-        </div>
-        <div class="col">
-            <input type="submit" class="btn" value="Ingresar">
-        </div>
+        <mat-card-content>
+            <div class="col">
+                <mat-form-field>
+                    <input type="text" matInput color="White" name="nombres" placeholder="Names"
+                        [(ngModel)]="alumno.nombres">
+                </mat-form-field>
+            </div>
+            <div class="col">
+                <mat-form-field>
+                    <input type="text" matInput name="apellidos" placeholder="Last names"
+                        [(ngModel)]="alumno.apellidos">
+                </mat-form-field>
+            </div>
+            <div class="col">
+                <mat-form-field>
+                    <mat-label>Group</mat-label>
+                    <mat-select [(ngModel)]="alumno.grupo">
+                        <mat-option value="BAS1">BAS1</mat-option>
+                        <mat-option value="BAS2">BAS2</mat-option>
+                        <mat-option value="BAS3">BAS3</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+        </mat-card-content>
+        <mat-card-actions>
+            <div class="col">
+                <button class="btn" type="submit" mat-flat-button color="primary">Enter</button>
+            </div>
+        </mat-card-actions>
     </form>
-</div>
+</mat-card>
 <app-about></app-about>

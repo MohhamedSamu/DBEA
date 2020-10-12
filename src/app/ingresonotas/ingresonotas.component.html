@@ -16,7 +16,7 @@
         </div>
         <div class="col">
             <p class="sm">Seleccione un grupo</p>
-            <select class="txt" [(ngModel)]="SelectedGrupo.grupo" (change)="seleccionGrupo()" name="id">
+            <select class="txt" [(ngModel)]="SelectedAlumno.grupo" (change)="seleccionGrupo()" name="id">
                 <option *ngFor="let tipo of tipos_grupos">{{ tipo }}</option>
             </select>
             <ng-container *ngIf="grupoState">

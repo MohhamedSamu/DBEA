@@ -5,12 +5,6 @@ export interface alumno{
     grupo?:string;
 }
 
-export interface grupo {
-    id?:string;
-    grupo?:string;
-    idAlumno?:string;
-}
-
 export interface nota {
     id?:string;
     nota?:number;

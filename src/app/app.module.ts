@@ -20,13 +20,14 @@ import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule} from '@angular/fire/firestore'
 import { environment } from '../environments/environment';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {MatInputModule} from '@angular/material/input';
-import {MatFormFieldModule } from '@angular/material/form-field';
-import {MatCardModule} from '@angular/material/card';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatCardModule } from '@angular/material/card';
 import { ReactiveFormsModule } from '@angular/forms'
-import {MatButtonModule} from '@angular/material/button';
-import {MatSliderModule} from '@angular/material/slider';
-import { MatExpansionModule} from '@angular/material/expansion';
+import { MatButtonModule } from '@angular/material/button';
+import { MatSliderModule } from '@angular/material/slider';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatSelectModule } from '@angular/material/select';
 @NgModule({
   declarations: [
     AppComponent,
@@ -53,7 +54,8 @@ import { MatExpansionModule} from '@angular/material/expansion';
     MatCardModule,
     MatButtonModule,
     MatSliderModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatSelectModule
   ],
   
   providers: [DataService],

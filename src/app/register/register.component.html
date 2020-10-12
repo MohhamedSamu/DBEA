@@ -2,7 +2,7 @@
     <div *ngIf="errorData">
         <p color="primary">{{ errorData.message }}</p>
     </div>
-    <mat-card-title> Registrar Maestro </mat-card-title>
+    <mat-card-title> Register new teacher </mat-card-title>
     <form #userRegForm="ngForm" (ngSubmit)="register(userRegForm)">
         <mat-card-content>
             <p>
@@ -20,7 +20,7 @@
                 </mat-form-field>
                 <mat-form-field>
                     <mat-label>Password</mat-label>
-                    <input matInput ngModel #password placeholder="Password" name="password">
+                    <input matInput type="password" ngModel #password placeholder="Password" name="password">
                 </mat-form-field>
             </p>
         </mat-card-content>

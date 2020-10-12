@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from '../data.service';
-import { alumno, grupo } from '../models/models';
+import { alumno } from '../models/models';
 import { Observable } from 'rxjs';
 import { ConstantPool } from '@angular/compiler';
 
@@ -17,18 +17,12 @@ export class AdministracionDeGruposComponent implements OnInit {
     nombres: ' ',
     grupo: null,
   };
-  SelectedGrupo: grupo = {
-    id: ' ',
-    grupo: ' ',
-    idAlumno: ' ',
-  };
 
   errorState: boolean;
   errorstate = false;
   errorMessage: string;
 
   alumnos: alumno[];
-  grupos: grupo[];
 
   idalumno: string;
   tipos_grupos: string[] = ['SEN1', 'SEN2', 'ADV1', 'ADV2'];
@@ -43,17 +37,12 @@ export class AdministracionDeGruposComponent implements OnInit {
     this._data.getAlumnos().subscribe((alumnos) => {
       this.alumnos = alumnos;
     });
-
-    this._data.getGrupos().subscribe((grupos) => {
-      this.grupos = grupos;
-    });
   }
 
   onSubmit(): void {
     if (this.idalumno) {
       if (this.SelectedAlumno.grupo === '') {
         this.SelectedAlumno.id = this.idalumno;
-        this._data.addGrupo(this.SelectedAlumno);
         this.idalumno = '';
         this.SelectedAlumno.id = ' ';
         this.SelectedAlumno.id = ' ';
@@ -74,7 +63,7 @@ export class AdministracionDeGruposComponent implements OnInit {
   }
 
   seleccionGrupo(){
-    this.grupoActual = this.SelectedGrupo.grupo
+    this.grupoActual = this.SelectedAlumno.grupo
     this.grupoState = true
   }
 
@@ -90,9 +79,6 @@ export class AdministracionDeGruposComponent implements OnInit {
 
   editarAlumno(grupo:string , alumno:alumno){
     alumno.grupo = grupo
-    this.SelectedGrupo.id = alumno.id;
-    this.SelectedGrupo.id = grupo;
-    this._data.addGrupo(this.SelectedGrupo);
     this._data.editarAlumno(alumno);
     this.clearState()
   }
