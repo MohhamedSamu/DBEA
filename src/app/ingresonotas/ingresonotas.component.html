@@ -1,4 +1,4 @@
-<div class="container color-light">
+<mat-card class="container color-light">
     <form (ngSubmit)="onSubmit()">
         <div class="ladoizquierdo">
             <div class="col">
@@ -19,38 +19,24 @@
             <select class="txt" [(ngModel)]="SelectedAlumno.grupo" (change)="seleccionGrupo()" name="id">
                 <option *ngFor="let tipo of tipos_grupos">{{ tipo }}</option>
             </select>
-            <ng-container *ngIf="grupoState">
+            <ng-container *ngIf="grupoState && Selectednota.evaluacion">
                 <p class="sm">Ingrese la nota de los alumnos</p>
                 <p class="lis" *ngFor="let alumno of alumnos">
                     <strong *ngIf="(alumno.grupo == grupoActual)">
                         {{ alumno.nombres }},{{alumno.apellidos}}
-                        <mat-slider class="example-margin" [max]="10" id="{{alumno.id}}slider"
-                            [min]="1" [step]="0.1" [thumbLabel]="true" (change)="ingresoNotas(alumno.id)">
+                        <mat-slider class="example-margin" [max]="10" [(ngModel)]="Selectednota.nota" name="evaluacion"
+                            [min]="1" [step]="0.1" [thumbLabel]="true" (change)="ingresoNotas(alumno.id)" disabled>
                         </mat-slider>
-
-                        <!--<input type="number" class="txt" (change)="ingresoNotas(alumno.id)" name="{{ alumno.id }}"
-                            id="{{ alumno.id }}nota" placeholder="Ej. 8">-->
                     </strong>
                 </p>
-                <!--<p class="sm">Seleccione un alumno</p>
-                <div *ngFor="let alumno of alumnos">
-                        <p (click)="SelccionAlumno(alumno.id)" *ngIf="(alumno.grupo == grupoActual) && idalumno == alumno.id; else noSeleccionado">
-                            <strong>-{{ alumno.apellidos}}, {{ alumno.nombres}}</strong>
-                        </p>
-                        <ng-template #noSeleccionado>
-                            <p (click)="SelccionAlumno(alumno.id)" *ngIf="alumno.grupo == grupoActual">{{ alumno.nombres}}</p>
-                        </ng-template>
-                </div>-->
             </ng-container>
-            <!--<p class="sm">Nota:</p>
-            <input type="number" class="txt" name="nota1" placeholder="Ej. 8" [(ngModel)]="Selectednota.nota">-->
         </div>
         <div class="col">
             <input type="submit" class="btn" value="Ingresar">
         </div>
 
     </form>
-</div>
+</mat-card>
 <div *ngIf="errorState">
     <p style="color: red">{{ errorMessage }}</p>
 </div>

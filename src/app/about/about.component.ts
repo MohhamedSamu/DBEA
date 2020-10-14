@@ -20,7 +20,6 @@ export class AboutComponent implements OnInit
 
   tipos_grupos: string[] = ['SEN1', 'SEN2', 'ADV1', 'ADV2'];
 
-  grupoActual: string = this.SelectedAlumno.grupo
   alumnoEditar: alumno
   editState: boolean = false
   alumnos: alumno[];

@@ -45,7 +45,7 @@ export class IngresonotasComponent implements OnInit
 
   }
   ingresoNotas(id){
-    console.log("el id " + id + " obtuvo " );
+    console.log("el id " + id + " obtuvo " + this.Selectednota.nota);
   }
   onSubmit(): void
   {
