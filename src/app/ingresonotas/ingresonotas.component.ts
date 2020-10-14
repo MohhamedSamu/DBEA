@@ -13,27 +13,25 @@ import { ConstantPool } from '@angular/compiler';
 export class IngresonotasComponent implements OnInit
 {
   SelectedAlumno: alumno = {
-    id: ' ',
-    apellidos: ' ',
-    nombres: ' ',
+    id: '',
+    apellidos: '',
+    nombres: '',
+    grupo:''
   };
   Selectednota: nota = {
     nota: 0,
-    evaluacion: ' ',
-    idAlumno: ' ',
+    evaluacion: '',
+    idAlumno: '',
   };
   errorState: boolean;
   errorstate = false;
   errorMessage: string;
   alumnos: alumno[];
-
+  index:number = 0;
+  alumnoActual:string;
   idalumno: string;
   tipos_grupos: string[] = ['SEN1', 'SEN2', 'ADV1', 'ADV2'];
-
-  grupoState: boolean = false
   alumnoEditar: alumno
-  editState: boolean = false
-  grupoActual: string
   constructor(private _data: DataService) { }
 
   ngOnInit(): void
@@ -45,7 +43,33 @@ export class IngresonotasComponent implements OnInit
 
   }
   ingresoNotas(id){
+    this.Selectednota.idAlumno = id
     console.log("el id " + id + " obtuvo " + this.Selectednota.nota);
+    this.Selectednota.nota = 0;
+    this.siguienteAlumno(id)
+  }
+  seleccionAlumno(id){
+    for (let x = 0; x < this.alumnos.length; x -=-1){
+      if (id === this.alumnos[x].id){
+        this.index = x
+      }
+    }
+    this.alumnoActual = id
+  }
+  siguienteAlumno(id){
+    if (this.index == this.alumnos.length){
+      this.index -=-1;
+      this.alumnoActual = ''
+    }else{
+      let flag = true;
+      do{
+        this.index -=-1;
+        if (this.alumnos[this.index].grupo == this.SelectedAlumno.grupo){
+          this.alumnoActual = this.alumnos[this.index].id;
+          flag = false
+        }
+      }while (flag)
+    }
   }
   onSubmit(): void
   {
@@ -82,10 +106,6 @@ export class IngresonotasComponent implements OnInit
       this.errorState = true
       this.errorMessage = "Evaluacion no ingresada"
     }
-  }
-  seleccionGrupo(){
-    this.grupoActual = this.SelectedAlumno.grupo
-    this.grupoState = true
   }
   SelccionAlumno(id:string){
     this.idalumno = id
