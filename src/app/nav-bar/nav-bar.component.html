@@ -3,7 +3,7 @@
     <li *ngIf="user"><a routerLink="notas">Grades</a></li>
     <li *ngIf="user"><a routerLink="asistencia">Attendence</a></li>
     <li *ngIf="esAdmin()"><a routerLink="admin">Admin</a></li>
-    <li><a routerLink="notas"(click)="onLogout()">log out</a></li>
+    <li><a href="#" (click)="onLogout()">log out</a></li>
 </ul>
 <ng-template #showLogin>
     <app-login></app-login>
