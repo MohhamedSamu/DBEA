@@ -18,7 +18,7 @@ export class AboutComponent implements OnInit
     grupo: 'SEN2'
   }
 
-  tipos_grupos: string[] = ['SEN1', 'SEN2', 'ADV1', 'ADV2'];
+  tipos_grupos: string[] = ['BAS1','BAS2','BAS3','SEN1', 'SEN2', 'SEN3', 'ADV1', 'ADV2', 'ADV3'];
 
   alumnoEditar: alumno
   editState: boolean = false

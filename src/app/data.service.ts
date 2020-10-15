@@ -123,6 +123,7 @@ export class DataService {
       firstname: this.newMaestro.fname,
       lastname: this.newMaestro.lname,
       role: 'Maestro',
+      grupo: this.newMaestro.grupo,
     });
   }
 

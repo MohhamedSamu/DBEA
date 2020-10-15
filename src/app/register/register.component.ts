@@ -9,6 +9,7 @@ import { DataService } from '../data.service';
 export class RegisterComponent implements OnInit {
 
   errorData: any;
+  tipos_grupos: string[] = ['BAS1','BAS2','BAS3','SEN1', 'SEN2', 'SEN3', 'ADV1', 'ADV2', 'ADV3'];
 
   constructor(private _data: DataService) { }
 

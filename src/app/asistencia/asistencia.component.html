@@ -1,32 +1,54 @@
-<div class="container color-light">
+<mat-card class="container" *ngIf="esAdmin(); else maestro">
     <div class="col">
-       <!---- <p class="sm">Seleccione un grupo</p>
-        <select class="txt" [(ngModel)]="SelectedGrupo.grupo" (change)="seleccionGrupo()" name="id">
-            <option *ngFor="let tipo of tipos_grupos">{{ tipo }}</option>
-        </select> --->
-        
-        <p class="sm">Marque que alumnos han asistido</p>
-            <p class="lis" *ngFor="let alumno of alumnos"><!--(Click)="SelccionAlumno(alumno.id)" *ngIf="alumno.grupo == grupoActual">-->
+        <mat-card-title>Attendence</mat-card-title>
+        <mat-form-field>
+            <mat-label>Chose the group</mat-label>
+            <mat-select [(ngModel)]="SelectedAlumno.grupo" name="grupo">
+                <mat-option *ngFor="let tipo of tipos_grupos" value="{{tipo}}">{{ tipo }}</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <div class="lis" *ngFor="let alumno of alumnos">
+            <p *ngIf="alumno.grupo === SelectedAlumno.grupo">
                 {{ alumno.nombres }},{{alumno.apellidos}}
-                <strong *ngFor="let grupo of grupos">
-                    <ng-container *ngIf="grupo.idAlumno === alumno.id">
-                        <ng-container>
-                            {{ grupo.grupo }}
-                        </ng-container>
-                    </ng-container>
-                </strong>
-                <input name="{{ alumno.id }}" id="{{ alumno.id }}si" type="radio"
-                (click)="registrarAsistenciaSi(alumno.id)">
-                <label for="{{ alumno.id }}si">Si</label>
                 <input name="{{ alumno.id }}" id="{{ alumno.id }}no" type="radio"
-                (click)="registrarAsistenciaNo(alumno.id)">
-                <label for="{{ alumno.id }}no">No</label>
+                    (click)="registrarAsistenciaNo(alumno.id)" class="r mx">
+                <label for="{{ alumno.id }}no" class="r mx">No</label>
+                <input name="{{ alumno.id }}" id="{{ alumno.id }}si" type="radio"
+                    (click)="registrarAsistenciaSi(alumno.id)" class="r mx">
+                <label for="{{ alumno.id }}si" class="r mx">Si</label>
+                <!-- <p *ngIf="alumno.grupo === SelectedAlumno.grupo">
+                    {{ alumno.nombres }},{{alumno.apellidos}}
+                    <mat-radio-group>
+                        <mat-radio-button (click)="registrarAsistenciaSi(alumno.id)" class="r mx" id="{{alumno.id}}si"
+                            name="{{alumno.id}}si">Si
+                        </mat-radio-button>
+                        <mat-radio-button (click)="registrarAsistenciaNo(alumno.id)" class="r mx" id="{{alumno.id}}no"
+                            name="{{alumno.id}}no">No
+                        </mat-radio-button>
+                    </mat-radio-group>
+                </p> -->
             </p>
-            <input type="button" value="Guardar cambios" (click)="guardar()">
+        </div>
     </div>
-</div>
-<!-- (click)="SeleccionBooleana(true, alumno.id)" -->
-
+</mat-card>
+<ng-template #maestro>
+    <mat-card class="container">
+        <div class="col">
+            <mat-card-title>Attendence</mat-card-title>
+            <div class="lis" *ngFor="let alumno of alumnos">
+                <p *ngIf="alumno.grupo === SelectedAlumno.grupo">
+                    {{ alumno.nombres }},{{alumno.apellidos}}
+                    <input name="{{ alumno.id }}" id="{{ alumno.id }}no" type="radio"
+                    (click)="registrarAsistenciaNo(alumno.id)" class="r mx">
+                <label for="{{ alumno.id }}no" class="r mx">No</label>
+                <input name="{{ alumno.id }}" id="{{ alumno.id }}si" type="radio"
+                    (click)="registrarAsistenciaSi(alumno.id)" class="r mx" checked>
+                <label for="{{ alumno.id }}si" class="r mx">Si</label>
+                </p>
+            </div>
+        </div>
+    </mat-card>
+</ng-template>
 <p *ngFor="let asistencia of asistencias">
     <strong *ngIf="asistencia.fecha == this.fechaHoy">
         {{ asistencia.idAlumno }} -- {{ asistencia.fecha }} -- {{ asistencia.llego }}

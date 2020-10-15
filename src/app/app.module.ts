@@ -28,6 +28,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatSelectModule } from '@angular/material/select';
+import {MatRadioModule} from '@angular/material/radio';
+import { CalendarioComponent } from './calendario/calendario.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -39,7 +41,8 @@ import { MatSelectModule } from '@angular/material/select';
     NavBarComponent,
     LoginComponent,
     RegisterComponent,
-    AdminComponent
+    AdminComponent,
+    CalendarioComponent
   ],
   imports: [
     BrowserModule,
@@ -55,7 +58,8 @@ import { MatSelectModule } from '@angular/material/select';
     MatButtonModule,
     MatSliderModule,
     MatExpansionModule,
-    MatSelectModule
+    MatSelectModule,
+    MatRadioModule
   ],
   
   providers: [DataService],

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { DataService } from '../data.service';
 import { alumno } from '../models/models'
+import {usuario} from '../models/models'
 
 @Component({
   selector: 'app-home',
@@ -17,13 +19,20 @@ export class HomeComponent implements OnInit {
   alumnoEditar: alumno
   editState: boolean = false
   alumnos: alumno[];
-  constructor(private _data: DataService) { }
+  user: firebase.User;
+  usuarios:usuario[];
+  constructor(private _data: DataService, private router : Router) { }
 
   ngOnInit(): void {
     this._data.getAlumnos().subscribe((alumnos) => {
       this.alumnos = alumnos;
-      // console.log(alumnos);
     });
+    this._data.getUserState().subscribe(user => {
+      this.user = user;
+    })
+    this._data.getUsers().subscribe( usuarios => {
+      this.usuarios = usuarios;
+    })
   }
 
   onSubmit(){
@@ -32,5 +41,15 @@ export class HomeComponent implements OnInit {
       this.alumno.apellidos = '';
       this.alumno.nombres = '';
     }
+  }
+  esAdmin(){
+    for (let x = 0; x < this.usuarios.length; x++){
+      if (this.usuarios[x].id === this.user.uid){
+        if  (this.usuarios[x].role == 'admin'){
+          return true;
+        }
+      }
+    }
+    this.router.navigate(['/notas']);
   }
 }

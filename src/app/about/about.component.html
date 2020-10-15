@@ -5,7 +5,7 @@
     <div class="col">
         <mat-form-field>
             <mat-label>Group</mat-label>
-            <mat-select [(ngModel)]="SelectedAlumno.grupo" (valueChange)="cambio()">
+            <mat-select [(ngModel)]="SelectedAlumno.grupo" (valueChange)="cambio()" name="grupo">
                 <mat-option *ngFor="let tipo of tipos_grupos" value="{{ tipo }}">{{ tipo }}</mat-option>
             </mat-select>
         </mat-form-field>

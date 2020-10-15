@@ -25,4 +25,5 @@ export interface usuario{
     firstname?:string;
     lastname?:string;
     role?:string;
+    grupo?:string;
 }

@@ -1,27 +1,25 @@
-<mat-card class="container">
-    <form (ngSubmit)="onSubmit()">
-        <div class="ladoizquierdo">
+<mat-card class="container" *ngIf="esAdmin(); else maestro">
+    <form>
+        <mat-card-title>Grades</mat-card-title>
             <div class="col">
-                <p class="sm" id="titulo">Ingrese los datos para confirmar la nota</p>
-                <p class="sm">Evaluacion:</p>
                 <mat-form-field>
+                    <mat-label>Evaluation</mat-label>
                     <mat-select [(ngModel)]="Selectednota.evaluacion" name="evaluacion">
-                        <mat-option value="'Final Test'">Final Test</mat-option>
-                        <mat-option value="'Oral Evaluation'">Oral Evaluation</mat-option>
-                        <mat-option value="'Class Activity'">Class Activity</mat-option>
-                        <mat-option value="'Final Test'">Final Test</mat-option>
+                        <mat-option value="Final Test">Final Test</mat-option>
+                        <mat-option value="Oral Evaluation">Oral Evaluation</mat-option>
+                        <mat-option value="Class Activity">Class Activity</mat-option>
+                        <mat-option value="Final Test">Final Test</mat-option>
                     </mat-select>
                 </mat-form-field>
             </div>
-        </div>
         <div class="col">
-            <p class="sm">Seleccione un grupo</p>
             <mat-form-field>
+                <mat-label>Chose the group</mat-label>
                 <mat-select [(ngModel)]="SelectedAlumno.grupo" name="grupo">
                     <mat-option *ngFor="let tipo of tipos_grupos" value="{{tipo}}">{{ tipo }}</mat-option>
                 </mat-select>
             </mat-form-field>
-            <mat-accordion class="example-headers-align">
+            <mat-accordion class="example-headers-align" *ngIf="SelectedAlumno.grupo && Selectednota.evaluacion">
                 <div *ngFor="let alumno of alumnos">
                     <mat-expansion-panel *ngIf="SelectedAlumno.grupo === alumno.grupo" [expanded]="alumnoActual === alumno.id" (opened)="seleccionAlumno(alumno.id)" hideToggle>
                         <mat-expansion-panel-header>
@@ -33,7 +31,7 @@
                             </mat-panel-description>
                         </mat-expansion-panel-header>
                             <mat-slider [max]="10" [(ngModel)]="Selectednota.nota" name="evaluacion" [min]="1" [step]="0.1"
-                                [thumbLabel]="true">
+                            [thumbLabel]="true">
                             </mat-slider>
                             <span class="material-icons" (click)="ingresoNotas(alumno.id)">done</span>
                     </mat-expansion-panel>
@@ -42,6 +40,47 @@
         </div>
     </form>
 </mat-card>
+<ng-template #maestro>
+    <mat-card class="container">
+        <form>
+            <mat-card-title>Grades</mat-card-title>
+                <div class="col">
+                    <mat-form-field>
+                        <mat-label>Evaluation</mat-label>
+                        <mat-select [(ngModel)]="Selectednota.evaluacion" name="evaluacion">
+                            <mat-option value="Final Test">Final Test</mat-option>
+                            <mat-option value="Oral Evaluation">Oral Evaluation</mat-option>
+                            <mat-option value="Class Activity">Class Activity</mat-option>
+                            <mat-option value="Final Test">Final Test</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            <div class="col">
+                <mat-accordion class="example-headers-align" *ngIf="SelectedAlumno.grupo && Selectednota.evaluacion">
+                    <div *ngFor="let alumno of alumnos">
+                        <mat-expansion-panel *ngIf="SelectedAlumno.grupo === alumno.grupo" [expanded]="alumnoActual === alumno.id" (opened)="seleccionAlumno(alumno.id)" hideToggle>
+                            <mat-expansion-panel-header>
+                                <mat-panel-title>
+                                    {{ alumno.apellidos }}
+                                </mat-panel-title>
+                                <mat-panel-description>
+                                    {{ alumno.nombres }}
+                                </mat-panel-description>
+                            </mat-expansion-panel-header>
+                                <mat-slider [max]="10" [(ngModel)]="Selectednota.nota" name="evaluacion" [min]="1" [step]="0.1"
+                                [thumbLabel]="true">
+                                </mat-slider>
+                                <span class="material-icons" (click)="ingresoNotas(alumno.id)">done</span>
+                        </mat-expansion-panel>
+                    </div>
+                </mat-accordion>
+            </div>
+        </form>
+    </mat-card>
+</ng-template>
 <div *ngIf="errorState">
     <p style="color: red">{{ errorMessage }}</p>
 </div>
+
+
+{{ Selectednota.evaluacion }}

@@ -1,25 +1,26 @@
-<mat-card class="container">
-    <form (ngSubmit)="onSubmit()">
-        <div class="col">
+<div *ngIf="esAdmin()">
+    <mat-card class="container">
+        <form (ngSubmit)="onSubmit()">
+            <div class="col">
             <mat-card-title> New student </mat-card-title>
         </div>
         <mat-card-content>
             <div class="col">
                 <mat-form-field>
-                    <input type="text" matInput color="White" name="nombres" placeholder="Names"
-                        [(ngModel)]="alumno.nombres">
+                    <input type="text" matInput color="White" placeholder="Names"
+                    [(ngModel)]="alumno.nombres" name="nombres">
                 </mat-form-field>
             </div>
             <div class="col">
                 <mat-form-field>
-                    <input type="text" matInput name="apellidos" placeholder="Last names"
-                        [(ngModel)]="alumno.apellidos">
+                    <input type="text" matInput placeholder="Last names"
+                    [(ngModel)]="alumno.apellidos" name="apellidos">
                 </mat-form-field>
             </div>
             <div class="col">
                 <mat-form-field>
                     <mat-label>Group</mat-label>
-                    <mat-select [(ngModel)]="alumno.grupo">
+                    <mat-select [(ngModel)]="alumno.grupo" name="grupo">
                         <mat-option value="BAS1">BAS1</mat-option>
                         <mat-option value="BAS2">BAS2</mat-option>
                         <mat-option value="BAS3">BAS3</mat-option>
@@ -35,3 +36,4 @@
     </form>
 </mat-card>
 <app-about></app-about>
+</div>
